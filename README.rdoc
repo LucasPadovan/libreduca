@@ -6,6 +6,56 @@ Web gradebook to share notes, grades and comments between members in an educatio
 
 === Dependency Status {<img src="https://gemnasium.com/cirope/libreduca.png?travis"/>}[https://gemnasium.com/cirope/libreduca]
 
+== Instalation guide
+1) Clone the repository to a folder in your system
+```
+git clone git@github.com:cirope/libreduca.git
+```
+2) Install Ruby 1.9 (for now, update to ruby 2.3.1 is work in progress)
+3) Install bundler gem
+4) Install PostgreSQL
+```
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib
+```
+5) Create an user in Postgres with the following info:
+Username: libreduca
+Password: libreduca
+
+5.1) Open the terminal in the folder where libreduca was cloned
+5.2) Open postgres terminal typing
+```
+sudo -i -u postgres
+psql
+```
+or
+```
+sudo -u postgres psql
+```
+5.3) Create the user
+```
+CREATE USER libreduca WITH PASSWORD 'libreduca';
+ALTER ROLE libreduca CREATEROLE CREATEDB;
+```
+Here you will have to enter the username and password. If you are prompeted to
+choose between superuser or no, choose by yourself. Since is development I always
+opt for super cow.
+
+6) Setup the project.
+Again in the folder where libreduca was cloned, type the following
+```
+cp config/app_config.example.yml config/app_config.yml
+bundle exec rake db:setup
+bundle exec rake db:migrate (just in case)
+bundle exec rake db:seed
+```
+7) Run the project!
+```
+bundle exec unicorn -p 3000
+```
+
+
+
 == (The MIT License)
 
 Copyright (c) 2012-2014 Cirope S.A.

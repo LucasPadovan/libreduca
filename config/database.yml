@@ -7,16 +7,20 @@ common: &common
 
 development:
   database: libreduca_development
+  host: localhost
   <<: *common
 
 test:
   database: libreduca_test
+  host: localhost
   <<: *common
 
 production:
   database: libreduca_production
+  host: external_database_host
   <<: *common
 
 sandbox:
   database: libreduca_production
+  host: localhost
   <<: *common
