@@ -1,12 +1,12 @@
-= Libreduca
+# Libreduca
 
 Web gradebook to share notes, grades and comments between members in an educational community
 
-=== Build Status {<img src="https://secure.travis-ci.org/cirope/libreduca.png"/>}[http://travis-ci.org/cirope/libreduca]
+#### Build Status [<img src="https://secure.travis-ci.org/cirope/libreduca.png"/>](http://travis-ci.org/cirope/libreduca)
 
-=== Dependency Status {<img src="https://gemnasium.com/cirope/libreduca.png?travis"/>}[https://gemnasium.com/cirope/libreduca]
+#### Dependency Status [<img src="https://gemnasium.com/cirope/libreduca.png?travis"/>](https://gemnasium.com/cirope/libreduca)
 
-== Instalation guide
+## Instalation guide
 1) Clone the repository to a folder in your system
 ```
 git clone git@github.com:cirope/libreduca.git
@@ -56,7 +56,7 @@ bundle exec unicorn -p 3000
 
 
 
-== (The MIT License)
+## (The MIT License)
 
 Copyright (c) 2012-2014 Cirope S.A.
 
