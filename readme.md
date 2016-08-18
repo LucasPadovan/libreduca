@@ -11,7 +11,7 @@ Web gradebook to share notes, grades and comments between members in an educatio
 ```
 git clone git@github.com:cirope/libreduca.git
 ```
-2) Install Ruby 1.9 (for now, update to ruby 2.3.1 is work in progress)
+2) Install Ruby 2.3.1
 3) Install bundler gem
 4) Install PostgreSQL
 ```
