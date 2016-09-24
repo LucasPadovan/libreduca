@@ -12,7 +12,13 @@ Web gradebook to share notes, grades and comments between members in an educatio
 git clone git@github.com:cirope/libreduca.git
 ```
 2) Install Ruby 2.3.1
+```
+sudo atp-get install ruby-full
+```
 3) Install bundler gem
+```
+gem install bundler
+```
 4) Install PostgreSQL
 ```
 sudo apt-get update
@@ -28,7 +34,7 @@ Password: libreduca
 sudo -i -u postgres
 psql
 ```
-or
+or                                                                   c
 ```
 sudo -u postgres psql
 ```
