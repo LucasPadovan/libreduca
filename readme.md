@@ -34,7 +34,7 @@ Password: libreduca
 sudo -i -u postgres
 psql
 ```
-or                                                                   c
+or
 ```
 sudo -u postgres psql
 ```
@@ -43,9 +43,9 @@ sudo -u postgres psql
 CREATE USER libreduca WITH PASSWORD 'libreduca';
 ALTER ROLE libreduca CREATEROLE CREATEDB;
 ```
-Here you will have to enter the username and password. If you are prompeted to
-choose between superuser or no, choose by yourself. Since is development I always
-opt for super cow.
+Here you will have to enter the username and password. If you are
+prompeted to choose between superuser or no, choose by yourself. Since
+is development I always opt for super cow.
 
 6) Setup the project.
 Again in the folder where libreduca was cloned, type the following
@@ -59,7 +59,11 @@ bundle exec rake db:seed
 ```
 bundle exec unicorn -p 3000
 ```
-
+8) Navigate!
+Open `www.lvh.me:300` and check that everything is working. Notice that
+we are using lvh.me to re-route to localhost and that www is mandatory.
+This is caused by the subsystem that checks institution's subdomains.
+`www.` acts as a wildcard and `lvh.me` allows us to use it.
 
 
 ## (The MIT License)
