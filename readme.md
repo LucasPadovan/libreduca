@@ -13,7 +13,7 @@ git clone git@github.com:cirope/libreduca.git
 ```
 2) Install Ruby 2.3.1
 ```
-sudo atp-get install ruby-full
+sudo apt-get install ruby-full
 ```
 3) Install bundler gem
 ```
@@ -24,9 +24,28 @@ gem install bundler
 sudo apt-get update
 sudo apt-get install postgresql postgresql-contrib
 ```
+For Mac you should use:
+```
+brew install postgresql
+```
+Start manually:
+```
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+or
+brew services start postgresql
+```
+Stop manually:
+```
+pg_ctl -D /usr/local/var/postgres stop -s -m fast
+or
+brew services stop postgresql
+```
 5) Create an user in Postgres with the following info:
+
 Username: libreduca
+
 Password: libreduca
+
 
 5.1) Open the terminal in the folder where libreduca was cloned
 5.2) Open postgres terminal typing
@@ -37,6 +56,10 @@ psql
 or
 ```
 sudo -u postgres psql
+```
+or
+```
+psql -d postgres
 ```
 5.3) Create the user
 ```
@@ -51,6 +74,7 @@ is development I always opt for super cow.
 Again in the folder where libreduca was cloned, type the following
 ```
 cp config/app_config.example.yml config/app_config.yml
+bundle
 bundle exec rake db:setup
 bundle exec rake db:migrate (just in case)
 bundle exec rake db:seed
