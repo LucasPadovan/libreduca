@@ -29,7 +29,7 @@ class CommentsControllerTest < ActionController::TestCase
     counts = ['forum.comments.count', 'ActionMailer::Base.deliveries.size']
 
     assert_difference counts do
-      post :create, forum_id: forum.to_param,
+      xhr :post, :create, forum_id: forum.to_param,
         comment: Fabricate.attributes_for(:comment,
           commentable_id: nil, commentable_type: nil
         ), format: :js
@@ -46,7 +46,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_difference('forum.comments.count') do
       assert_no_difference 'ActionMailer::Base.deliveries.size' do
-        post :create, forum_id: forum.to_param,
+        xhr :post, :create, forum_id: forum.to_param,
           comment: Fabricate.attributes_for(
             :comment, commentable_id: nil, commentable_type: nil
           ), format: :js

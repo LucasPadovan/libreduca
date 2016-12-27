@@ -19,7 +19,7 @@ Libreduca::Application.configure do
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
-  # Disable Rails's static asset server (Apache or nginx will already do this)
+  # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS.
@@ -44,7 +44,7 @@ Libreduca::Application.configure do
   # Leave HSTS configuration to Nginx
   config.ssl_options = { hsts: false }
 
-  # See everything in the log (default is :info)
+  # Set to :debug to see everything in the log.
   config.log_level = :info
 
   # Prepend all log lines with the following tags.

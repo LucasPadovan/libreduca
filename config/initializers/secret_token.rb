@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Libreduca::Application.config.secret_key_base = '7fed58827c38c99bc7f7391a6708941ea223f4c432388e67e4df09cf53c3963a00ad9747cb658cd547d820bb207f85dc095b1307b498116a23bf90553221f77b'
+Libreduca::Application.config.secret_key_base = 'd52d3304b82a1ada40e9419c1c9e331ea710a3bfa10878d31829a28a621b23cb10506e21951bcdbafb1bf8116be909e8e705c567248a055ba5c7aede126c2c4f'
