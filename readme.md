@@ -89,6 +89,12 @@ we are using lvh.me to re-route to localhost and that www is mandatory.
 This is caused by the subsystem that checks institution's subdomains.
 `www.` acts as a wildcard and `lvh.me` allows us to use it.
 
+## Testing
+1) Download the Selenium-Webdriver to a folder in your machine.
+```
+https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver
+```
+2) export PATH=$PATH:/path/to/geckodriver_folder
 
 ## (The MIT License)
 

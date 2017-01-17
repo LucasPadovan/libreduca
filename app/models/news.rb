@@ -49,16 +49,7 @@ class News < ActiveRecord::Base
   end
 
   def remove_duplicates_tags
-    tags = []
-
-    self.taggings.reject! do |t|
-      if tags.include?(t.tag.name)
-        true
-      else
-        tags << t.tag.name
-        false
-      end
-    end
+    self.taggings.map{ |t| t.tag.name }.uniq
   end
 
   def set_institution_to_tags

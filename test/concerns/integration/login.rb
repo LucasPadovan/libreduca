@@ -19,6 +19,12 @@ module Integration
         find('.btn.btn-primary').click
       end
 
+      # There was a weird timeout when executing tests, this action waits for
+      # the page to finish loading and tests are executed as expected.
+      # Yes, it slow the tests, but for now is a good approach to keep them
+      # running.
+      sleep(2)
+
       assert_equal expected_path, current_path
 
       assert_page_has_no_errors!

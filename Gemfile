@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.13'
+gem 'rails', '~> 4.1.8'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -30,6 +30,8 @@ gem 'uglifier'
 
 gem 'unicorn'
 
+gem 'byebug'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-bundler'
@@ -39,7 +41,6 @@ group :development do
 end
 
 group :test do
-  gem 'turn'
   gem 'selenium-webdriver'
   gem 'capybara', require: false
   gem 'database_cleaner'
