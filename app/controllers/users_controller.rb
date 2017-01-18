@@ -116,9 +116,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.present?
         if @user.has_job_in?(current_institution)
-          format.js { redirect_via_turbolinks_to edit_user_url(@user) }
+          format.js { redirect_to edit_user_url(@user), turbolinks: true }
         else
-          format.js { redirect_via_turbolinks_to new_user_job_url(@user) }
+          format.js { redirect_to new_user_job_url(@user), turbolinks: true }
         end
       else
         format.js { head :ok }

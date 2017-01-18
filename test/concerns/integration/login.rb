@@ -21,7 +21,7 @@ module Integration
 
       # There was a weird timeout when executing tests, this action waits for
       # the page to finish loading and tests are executed as expected.
-      # Yes, it slow the tests, but for now is a good approach to keep them
+      # Yes, it slows the tests, but for now is a good approach to keep them
       # running.
       sleep(2)
 
