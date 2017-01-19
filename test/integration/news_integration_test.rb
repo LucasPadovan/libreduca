@@ -214,6 +214,7 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
 
     assert_no_difference ['News.count', 'Tagging.count', 'Tag.count'] do
       find('.news-submit').click
+      sleep(1)
     end
   end
 
@@ -230,11 +231,13 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
 
     within '#tags fieldset:nth-child(1)' do
       find('.glyphicon-remove-circle').click
+      sleep(1)
     end
 
     assert_no_difference ['News.count', 'Tag.count'] do
       assert_difference 'Tagging.count', -1 do
         find('.news-submit').click
+        sleep(1)
       end
     end
   end

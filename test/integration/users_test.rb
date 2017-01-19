@@ -55,6 +55,8 @@ class UsersTest < ActionDispatch::IntegrationTest
       select I18n.t("view.jobs.types.#{Job::TYPES.first}"),
         from: find('select[name$="[job]"]')[:id]
       fill_in find('input[name$="[description]"]')[:id], with: 'test'
+      # this fill in seems to not be working. or the button is no triggering and creating the elements.
+      # maybe making click and checking something else in the asserts down here?
     end
 
     assert_difference 'User.count' do
@@ -150,6 +152,7 @@ class UsersTest < ActionDispatch::IntegrationTest
 
     assert_difference ['User.count', 'Job.count'] do
       find('.btn.btn-primary').click
+      sleep(1)
     end
   end
 
@@ -236,6 +239,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert_no_difference 'User.count' do
       assert_difference 'Job.count', -1 do
         find('.btn.btn-primary').click
+        sleep(1)
       end
     end
   end

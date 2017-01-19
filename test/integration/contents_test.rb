@@ -64,6 +64,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
     assert_difference ['Content.count', 'Homework.count'] do
       assert_difference 'Document.count', 2 do
         find('.btn.btn-primary').click
+        sleep(1)
       end
     end
   end

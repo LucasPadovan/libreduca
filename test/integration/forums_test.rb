@@ -17,6 +17,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
 
     assert_difference ['institution.forums.count', 'ActionMailer::Base.deliveries.size'] do
       find('.btn-primary').click
+      sleep(1)
     end
   end
 

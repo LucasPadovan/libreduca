@@ -26,6 +26,7 @@ class RegionsTest < ActionDispatch::IntegrationTest
     assert_difference 'Region.count' do
       assert_difference 'District.count', 2 do
         find('.btn.btn-primary').click
+        sleep(1)
       end
     end
 

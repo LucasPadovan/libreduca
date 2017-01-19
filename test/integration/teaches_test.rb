@@ -17,6 +17,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
 
     within '.ui-datepicker-calendar' do
       find('a.ui-state-default.ui-state-highlight').click
+      sleep(1)
     end
 
     find('#teach_finish').click
@@ -107,6 +108,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     assert_no_difference 'Teach.count' do
       assert_difference 'Enrollment.count', -1 do
         find('.btn.btn-primary').click
+        sleep(1)
       end
     end
   end
@@ -146,6 +148,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     assert_no_difference 'Teach.count' do
       assert_difference 'Score.count' do
         find('.btn.btn-primary').click
+        sleep(1) #failed the same
       end
     end
   end

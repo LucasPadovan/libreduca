@@ -58,6 +58,7 @@ class SurveysTest < ActionDispatch::IntegrationTest
 
     assert_difference ['Survey.count', 'Question.count', 'Answer.count'] do
       find('.btn-primary').click
+      sleep(1)
     end
   end
 
