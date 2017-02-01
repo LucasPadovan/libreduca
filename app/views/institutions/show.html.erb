@@ -25,7 +25,7 @@
   </h3>
 
   <ul>
-    <% @institution.grades.reject!(&:new_record?).each do |grade| %>
+    <% @institution.grades.to_a.reject!(&:new_record?).each do |grade| %>
       <li>
         <%= link_to_if can?(:read, grade), grade.to_s, [@institution, grade] %>
       </li>

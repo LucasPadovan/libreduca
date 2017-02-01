@@ -31,7 +31,10 @@ class ActionDispatch::IntegrationTest
   self.use_transactional_fixtures = false
 
   setup do
-    Capybara.default_driver = :selenium
+    # Capybara.default_driver = :selenium
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :chrome)
+    end
     Capybara.server_port = '54163'
     Capybara.app_host = 'http://admin.lvh.me:54163'
     Capybara.default_max_wait_time = ENV['TRAVIS'] ? 4 : 5

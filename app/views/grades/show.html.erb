@@ -25,7 +25,7 @@
   </div>
 
   <ul>
-    <% @grade.courses.reject!(&:new_record?).each do |course| %>
+    <% @grade.courses.to_a.reject!(&:new_record?).each do |course| %>
       <li><%= link_to_if can?(:read, course), course.to_s, [@grade, course] %></li>
     <% end %>
   </ul>
