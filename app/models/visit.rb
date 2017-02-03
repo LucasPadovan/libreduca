@@ -3,7 +3,7 @@ class Visit < ApplicationRecord
   attr_readonly :user_id, :visited_id, :visited_type
 
   # Callbacks
-  before_destroy -> { false }
+  before_destroy -> { throw(:abort) }
 
   # Restrictions
   validates :user_id, uniqueness: { scope: [:visited_id, :visited_type] }

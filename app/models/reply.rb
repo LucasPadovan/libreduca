@@ -8,7 +8,7 @@ class Reply < ApplicationRecord
   attr_readonly :user_id
 
   # Callbacks
-  before_destroy -> { false }
+  before_destroy -> { throw(:abort) }
 
   # Validations
   validates :question, :user, presence: true

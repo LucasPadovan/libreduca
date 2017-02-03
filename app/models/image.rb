@@ -78,7 +78,11 @@ class Image < ApplicationRecord
 
         self.content_type = Mime::Type.lookup_by_extension(ext.to_s.downcase).to_s
         self.content_type ||= 'application/octet-stream'
+      else
+        throw(:abort)
       end
+    else
+      throw(:abort)
     end
   end
 end

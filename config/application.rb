@@ -33,5 +33,8 @@ module Libreduca
       g.test_framework :test_unit, fixture_replacement: :fabrication
       g.fixture_replacement :fabrication, dir: 'test/fabricators'
     end
+
+    # Enable this to use the callback break on false statements of Rails 4.2
+    ActiveSupport.halt_callback_chains_on_return_false = false
   end
 end

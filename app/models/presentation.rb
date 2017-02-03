@@ -62,6 +62,8 @@ class Presentation < ApplicationRecord
     if file.present? && file_changed?
       self.content_type = file.file.content_type
       self.file_size = file.file.size
+    else
+      throw(:abort)
     end
   end
 end

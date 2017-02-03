@@ -8,7 +8,7 @@ class Tag < ApplicationRecord
   alias_attribute :label, :to_s
 
   # Callbacks
-  before_destroy -> { false }
+  before_destroy -> { throw(:abort) }
 
   # Default order
   default_scope -> { order("#{table_name}.name DESC") }
