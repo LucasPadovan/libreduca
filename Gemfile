@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.8'
+gem 'rails', '~> 4.2.7.1'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -23,6 +23,8 @@ gem 'sidekiq'
 gem 'newrelic_rpm'
 # Must be outside assets because a constant is used in the initializers
 gem 'jquery-fileupload-rails'
+# Enables responders at class level
+gem 'responders', '~> 2.0'
 
 gem 'sass-rails'
 gem 'coffee-rails'
@@ -38,10 +40,12 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'unicorn-rails'
+  gem 'web-console', '~>2.0'
 end
 
 group :test do
   gem 'selenium-webdriver'
+  # gem 'chromedriver-helper'
   gem 'capybara', require: false
   gem 'database_cleaner'
   gem 'fabrication'
