@@ -1,7 +1,10 @@
-module BootstrapPaginationHelper
-	class LinkRenderer < WillPaginate::ActionView::LinkRenderer
+require 'will_paginate/view_helpers/link_renderer'
+require 'will_paginate/view_helpers/action_view'
 
-		protected
+module BootstrapPaginationHelper
+  class LinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
+
+    protected
       def page_number(page)
         unless page == current_page
           link(page, page, rel: rel_value(page))
