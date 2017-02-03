@@ -1,4 +1,4 @@
-class Login < ActiveRecord::Base
+class Login < ApplicationRecord
   # Default order
   default_scope -> { order("#{table_name}.created_at ASC") }
 

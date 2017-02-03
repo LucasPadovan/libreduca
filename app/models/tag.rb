@@ -1,4 +1,4 @@
-class Tag < ActiveRecord::Base
+class Tag < ApplicationRecord
   has_paper_trail
 
   CATEGORIES = ['default', 'primary', 'success', 'info', 'warning', 'danger']

@@ -1,4 +1,4 @@
-class Teach < ActiveRecord::Base
+class Teach < ApplicationRecord
   has_paper_trail
 
   attr_accessor :auto_enrollable_name

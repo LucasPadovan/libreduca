@@ -1,4 +1,4 @@
-class Visit < ActiveRecord::Base
+class Visit < ApplicationRecord
   # Attribute restrictions
   attr_readonly :user_id, :visited_id, :visited_type
 

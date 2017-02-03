@@ -1,4 +1,4 @@
-class Membership < ActiveRecord::Base
+class Membership < ApplicationRecord
   has_paper_trail
 
   attr_accessor :auto_group_name, :auto_user_name

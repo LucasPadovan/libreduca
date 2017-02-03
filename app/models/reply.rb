@@ -1,4 +1,4 @@
-class Reply < ActiveRecord::Base
+class Reply < ApplicationRecord
   include Commentable
   include Replies::ValidReply
 

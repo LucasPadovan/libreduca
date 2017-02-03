@@ -1,4 +1,4 @@
-class Kinship < ActiveRecord::Base
+class Kinship < ApplicationRecord
   include Kinships::Chart
 
   has_paper_trail

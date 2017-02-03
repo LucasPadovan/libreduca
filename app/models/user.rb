@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Users::Comparable
   include Users::Chart
   include Users::DeviseCustomization

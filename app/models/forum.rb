@@ -1,4 +1,4 @@
-class Forum < ActiveRecord::Base
+class Forum < ApplicationRecord
   include Commentable
 
   has_paper_trail ignore: [

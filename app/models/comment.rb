@@ -1,4 +1,4 @@
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   has_paper_trail ignore: [
     :votes_count, :lock_version, :updated_at
   ]

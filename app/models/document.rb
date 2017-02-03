@@ -1,4 +1,4 @@
-class Document < ActiveRecord::Base
+class Document < ApplicationRecord
   has_paper_trail
 
   mount_uploader :file, FileUploader

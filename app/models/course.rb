@@ -1,4 +1,4 @@
-class Course < ActiveRecord::Base
+class Course < ApplicationRecord
   has_paper_trail
 
   has_magick_columns name: :string

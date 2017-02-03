@@ -1,4 +1,4 @@
-class Image < ActiveRecord::Base
+class Image < ApplicationRecord
   mount_uploader :file, ImageUploader
 
   has_paper_trail

@@ -1,4 +1,4 @@
-class Survey < ActiveRecord::Base
+class Survey < ApplicationRecord
   include Surveys::CSV
   include Surveys::CurrentCheck
 

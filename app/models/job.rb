@@ -1,4 +1,4 @@
-class Job < ActiveRecord::Base
+class Job < ApplicationRecord
   has_paper_trail
 
   TYPES = ['headmaster', 'teacher', 'janitor', 'student']

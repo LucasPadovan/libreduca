@@ -1,4 +1,4 @@
-class Tagging < ActiveRecord::Base
+class Tagging < ApplicationRecord
   has_paper_trail
 
   # Default order

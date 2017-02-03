@@ -1,4 +1,4 @@
-class Presentation < ActiveRecord::Base
+class Presentation < ApplicationRecord
   include Commentable
 
   has_paper_trail ignore: :comments_count

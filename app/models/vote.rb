@@ -1,4 +1,4 @@
-class Vote < ActiveRecord::Base
+class Vote < ApplicationRecord
   attr_readonly :user_id, :votable_id, :votable_type
 
   # Validations

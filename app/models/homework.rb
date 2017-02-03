@@ -1,4 +1,4 @@
-class Homework < ActiveRecord::Base
+class Homework < ApplicationRecord
   has_paper_trail
 
   # Defaul order

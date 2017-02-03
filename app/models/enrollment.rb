@@ -1,4 +1,4 @@
-class Enrollment < ActiveRecord::Base
+class Enrollment < ApplicationRecord
   has_paper_trail
 
   # Scopes

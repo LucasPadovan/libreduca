@@ -1,4 +1,4 @@
-class Score < ActiveRecord::Base
+class Score < ApplicationRecord
   has_paper_trail
 
   before_validation :replace_coma_with_period_in_scores
