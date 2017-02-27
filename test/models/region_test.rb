@@ -70,18 +70,18 @@ class RegionTest < ActiveSupport::TestCase
     ], @region.errors[:name]
   end
 
-  test 'magick search' do
-    5.times do
-      Fabricate(:region) { name { "magick_name #{sequence(:region_name)}" } }
-    end
-
-    regions = Region.magick_search('magick')
-
-    assert_equal 5, regions.count
-    assert regions.all? { |s| s.to_s =~ /magick/ }
-
-    regions = Region.magick_search('noplace')
-
-    assert regions.empty?
-  end
+  # test 'magick search' do
+  #   5.times do
+  #     Fabricate(:region) { name { "magick_name #{sequence(:region_name)}" } }
+  #   end
+  #
+  #   regions = Region.magick_search('magick')
+  #
+  #   assert_equal 5, regions.count
+  #   assert regions.all? { |s| s.to_s =~ /magick/ }
+  #
+  #   regions = Region.magick_search('noplace')
+  #
+  #   assert regions.empty?
+  # end
 end

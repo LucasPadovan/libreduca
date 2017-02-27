@@ -240,6 +240,10 @@
           attributes:
             base:
               invalid_answer: 'Debe elegir una opción o contestar'
+        user:
+          attributes:
+            email:
+              invalid_email_address: 'no es válido'
 
   date:
     formats:

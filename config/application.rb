@@ -36,5 +36,23 @@ module Libreduca
 
     # Enable this to use the callback break on false statements of Rails 4.2
     ActiveSupport.halt_callback_chains_on_return_false = false
+
+    # belongs_to should not trigger validation errors if association is not
+    # present. This will be scheduled to be checked and enabled when finished.
+    config.active_record.belongs_to_required_by_default = false
+
+    # Individual CSRF tokens are more secure
+    config.action_controller.per_form_csrf_tokens = true
+    config.action_controller.forgery_protection_origin_check = true
+
+    # Mailer configuration
+    # config.action_mailer.deliver_later_queue_name = :new_queue_name
+    config.action_mailer.perform_caching = true
+
+    # SSL configuration
+    # config.ssl_options = { hsts: { subdomains: true } }
+
+    # For Ruby 2.4
+    # ActiveSupport.to_time_preserves_timezone = false
   end
 end

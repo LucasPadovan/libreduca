@@ -79,10 +79,13 @@ class Image < ApplicationRecord
         self.content_type = Mime::Type.lookup_by_extension(ext.to_s.downcase).to_s
         self.content_type ||= 'application/octet-stream'
       else
-        throw(:abort)
+        # TODO: Check this abort.
+        # I don't get why the abort, it is breaking some stuff and may be
+        # related to the update and a change in the throw(:abort)
+        # throw(:abort)
       end
     else
-      throw(:abort)
+      # throw(:abort)
     end
   end
 end

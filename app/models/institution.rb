@@ -5,7 +5,7 @@ class Institution < ApplicationRecord
 
   has_paper_trail
 
-  has_magick_columns name: :string, identification: :string
+  # has_magick_columns name: :string, identification: :string
 
   alias_attribute :label, :name
   alias_attribute :informal, :identification
@@ -44,6 +44,7 @@ class Institution < ApplicationRecord
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    # query.present? ? magick_search(query) : all
+    all
   end
 end

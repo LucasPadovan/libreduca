@@ -3,7 +3,7 @@ class Tag < ApplicationRecord
 
   CATEGORIES = ['default', 'primary', 'success', 'info', 'warning', 'danger']
 
-  has_magick_columns name: :string, tagger_type: :string
+  # has_magick_columns name: :string, tagger_type: :string
 
   alias_attribute :label, :to_s
 
@@ -47,6 +47,7 @@ class Tag < ApplicationRecord
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    # query.present? ? magick_search(query) : all
+    all
   end
 end

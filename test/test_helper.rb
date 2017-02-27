@@ -15,7 +15,7 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 end
 
 # Transactional fixtures do not work with Selenium tests, because Capybara
@@ -28,7 +28,7 @@ class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   # Stop ActiveRecord from wrapping tests in transactions
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   setup do
     # Capybara.default_driver = :selenium

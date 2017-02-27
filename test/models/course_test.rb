@@ -60,18 +60,18 @@ class CourseTest < ActiveSupport::TestCase
     ], @course.errors[:name]
   end
 
-  test 'magick search' do
-    5.times do
-      Fabricate(:course) { name { "magick_name #{sequence(:course_name)}" } }
-    end
-
-    courses = Course.magick_search('magick')
-
-    assert_equal 5, courses.count
-    assert courses.all? { |s| s.to_s =~ /magick/ }
-
-    courses = Course.magick_search('noplace')
-
-    assert courses.empty?
-  end
+  # test 'magick search' do
+  #   5.times do
+  #     Fabricate(:course) { name { "magick_name #{sequence(:course_name)}" } }
+  #   end
+  #
+  #   courses = Course.magick_search('magick')
+  #
+  #   assert_equal 5, courses.count
+  #   assert courses.all? { |s| s.to_s =~ /magick/ }
+  #
+  #   courses = Course.magick_search('noplace')
+  #
+  #   assert courses.empty?
+  # end
 end

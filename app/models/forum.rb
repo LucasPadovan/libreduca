@@ -5,7 +5,7 @@ class Forum < ApplicationRecord
     :comments_count, :lock_version, :updated_at
   ]
 
-  has_magick_columns name: :string
+  # has_magick_columns name: :string
 
   delegate :institution, :users, to: :owner, allow_nil: true
 
@@ -28,7 +28,8 @@ class Forum < ApplicationRecord
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    # query.present? ? magick_search(query) : all
+    all
   end
 
   def users_to_notify(user, institution)

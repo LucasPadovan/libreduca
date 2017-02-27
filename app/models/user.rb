@@ -22,6 +22,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :name, :lastname, :email, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
+  validates_email_format_of :email
 
   # Relations
   has_many :enrollments, as: :enrollable, dependent: :destroy

@@ -1,7 +1,7 @@
 class Grade < ApplicationRecord
   has_paper_trail
 
-  has_magick_columns name: :string
+  # has_magick_columns name: :string
 
   # Default order
   default_scope -> { order("#{table_name}.name ASC") }
@@ -21,6 +21,7 @@ class Grade < ApplicationRecord
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    # query.present? ? magick_search(query) : all
+    all
   end
 end

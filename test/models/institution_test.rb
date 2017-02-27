@@ -91,46 +91,46 @@ class InstitutionTest < ActiveSupport::TestCase
     ], @institution.errors[:identification]
   end
 
-  test 'magick search' do
-    5.times { Fabricate(:institution, name: 'magick_name') }
-    3.times do
-      Fabricate(:institution) do
-        identification {
-          "magick-identification-#{sequence(:institution_identification)}"
-        }
-      end
-    end
-
-    Fabricate(:institution, name: 'magick_name') do
-      identification { "magick-identification-#{sequence(:institution_identification)}" }
-    end
-
-    institutions = Institution.magick_search('magick')
-
-    assert_equal 9, institutions.count
-    assert institutions.all? { |s| s.inspect =~ /magick/ }
-
-    institutions = Institution.magick_search('magick_name')
-
-    assert_equal 6, institutions.count
-    assert institutions.all? { |s| s.inspect =~ /magick_name/ }
-
-    institutions = Institution.magick_search('magick_name magick-identification')
-
-    assert_equal 1, institutions.count
-    assert institutions.all? { |s| s.inspect =~ /magick-identification.*magick_name/ }
-
-    institutions = Institution.magick_search(
-      "magick_name #{I18n.t('magick_columns.or').first} magick-identification"
-    )
-
-    assert_equal 9, institutions.count
-    assert institutions.all? { |s| s.inspect =~ /magick_name|magick-identification/ }
-
-    institutions = Institution.magick_search('noinstitution')
-
-    assert institutions.empty?
-  end
+  # test 'magick search' do
+  #   5.times { Fabricate(:institution, name: 'magick_name') }
+  #   3.times do
+  #     Fabricate(:institution) do
+  #       identification {
+  #         "magick-identification-#{sequence(:institution_identification)}"
+  #       }
+  #     end
+  #   end
+  #
+  #   Fabricate(:institution, name: 'magick_name') do
+  #     identification { "magick-identification-#{sequence(:institution_identification)}" }
+  #   end
+  #
+  #   institutions = Institution.magick_search('magick')
+  #
+  #   assert_equal 9, institutions.count
+  #   assert institutions.all? { |s| s.inspect =~ /magick/ }
+  #
+  #   institutions = Institution.magick_search('magick_name')
+  #
+  #   assert_equal 6, institutions.count
+  #   assert institutions.all? { |s| s.inspect =~ /magick_name/ }
+  #
+  #   institutions = Institution.magick_search('magick_name magick-identification')
+  #
+  #   assert_equal 1, institutions.count
+  #   assert institutions.all? { |s| s.inspect =~ /magick-identification.*magick_name/ }
+  #
+  #   institutions = Institution.magick_search(
+  #     "magick_name #{I18n.t('magick_columns.or').first} magick-identification"
+  #   )
+  #
+  #   assert_equal 9, institutions.count
+  #   assert institutions.all? { |s| s.inspect =~ /magick_name|magick-identification/ }
+  #
+  #   institutions = Institution.magick_search('noinstitution')
+  #
+  #   assert institutions.empty?
+  # end
 
   test 'settings' do
     assert Institution::DEFAULT_SETTINGS.size > 0

@@ -1,7 +1,7 @@
 class Group < ApplicationRecord
   has_paper_trail
 
-  has_magick_columns name: :string
+  # has_magick_columns name: :string
 
   attr_accessor :enrollable_type
 
@@ -42,6 +42,7 @@ class Group < ApplicationRecord
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : all
+    # query.present? ? magick_search(query) : all
+    all
   end
 end

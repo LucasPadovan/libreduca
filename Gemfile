@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.1'
+gem 'rails', '5.0.0.1'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -13,7 +13,7 @@ gem 'devise-async'
 gem 'cancancan'
 gem 'role_model'
 gem 'paper_trail'
-gem 'magick_columns'
+# gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'roadie-rails'
 gem 'redcarpet'
@@ -34,6 +34,9 @@ gem 'unicorn'
 
 gem 'byebug'
 
+# Validations
+gem 'validates_email_format_of'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-bundler'
@@ -51,4 +54,5 @@ group :test do
   gem 'fabrication'
   gem 'faker'
   gem 'timecop'
+  gem 'rails-controller-testing'
 end

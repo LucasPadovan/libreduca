@@ -60,18 +60,18 @@ class GradeTest < ActiveSupport::TestCase
     ], @grade.errors[:name]
   end
 
-  test 'magick search' do
-    5.times do
-      Fabricate(:grade) { name { "magick_name #{sequence(:grade_name)}" } }
-    end
-
-    grades = Grade.magick_search('magick')
-
-    assert_equal 5, grades.count
-    assert grades.all? { |s| s.to_s =~ /magick/ }
-
-    grades = Grade.magick_search('noplace')
-
-    assert grades.empty?
-  end
+  # test 'magick search' do
+  #   5.times do
+  #     Fabricate(:grade) { name { "magick_name #{sequence(:grade_name)}" } }
+  #   end
+  #
+  #   grades = Grade.magick_search('magick')
+  #
+  #   assert_equal 5, grades.count
+  #   assert grades.all? { |s| s.to_s =~ /magick/ }
+  #
+  #   grades = Grade.magick_search('noplace')
+  #
+  #   assert grades.empty?
+  # end
 end
