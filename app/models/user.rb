@@ -22,6 +22,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :name, :lastname, :email, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
+  # TODO: Check the form when entering long or blank, 2 errors should be shown.
   validates_email_format_of :email
 
   # Relations

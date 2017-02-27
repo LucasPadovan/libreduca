@@ -60,11 +60,13 @@ class UserTest < ActiveSupport::TestCase
     @user.email = ''
 
     assert @user.invalid?
-    assert_equal 2, @user.errors.size
+    assert_equal 3, @user.errors.size
     assert_equal [error_message_from_model(@user, :name, :blank)],
       @user.errors[:name]
-    assert_equal [error_message_from_model(@user, :email, :blank)],
-      @user.errors[:email]
+    assert_equal [
+      error_message_from_model(@user, :email, :blank),
+      error_message_from_model(@user, :email, :invalid_email_address)
+    ], @user.errors[:email]
   end
 
   test 'validates well formated attributes' do
@@ -112,7 +114,9 @@ class UserTest < ActiveSupport::TestCase
     @user.email = "#{'abcde' * 52}@test.com"
 
     assert @user.invalid?
-    assert_equal 3, @user.errors.count
+    # validates_email_format_of also is present here because of the length of
+    # the email string. This means 2 errors will be triggered for the email
+    assert_equal 4, @user.errors.count
     assert_equal [
       error_message_from_model(@user, :name, :too_long, count: 255)
     ], @user.errors[:name]
@@ -120,7 +124,8 @@ class UserTest < ActiveSupport::TestCase
       error_message_from_model(@user, :lastname, :too_long, count: 255)
     ], @user.errors[:lastname]
     assert_equal [
-      error_message_from_model(@user, :email, :too_long, count: 255)
+      error_message_from_model(@user, :email, :too_long, count: 255),
+      error_message_from_model(@user, :email, :invalid_email_address)
     ], @user.errors[:email]
   end
 
