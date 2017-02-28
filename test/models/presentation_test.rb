@@ -26,7 +26,8 @@ class PresentationTest < ActiveSupport::TestCase
     assert_no_difference 'Presentation.count' do
       @presentation.homework_id = new_homework.id
 
-      assert @presentation.save
+      # Presentation is not saved if you try to override a readonly attribute
+      assert !@presentation.save
     end
 
     assert_not_equal new_homework.id, @presentation.reload.homework_id
