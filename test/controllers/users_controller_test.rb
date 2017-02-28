@@ -248,7 +248,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should find the user by email' do
     login_into_institution
 
-    xhr :get, :find_by_email, email: @user.email
+    get :find_by_email, email: @user.email, xhr: true
 
     assert_match edit_user_url(@user), @response.body
   end
@@ -258,7 +258,7 @@ class UsersControllerTest < ActionController::TestCase
     another_user = Fabricate(:user)
     job = Fabricate(:job, institution_id: institution.id)
 
-    xhr :get, :find_by_email, email: another_user.email
+    get :find_by_email, email: another_user.email, xhr: true
 
     assert_match new_user_job_url(another_user), @response.body
   end
@@ -266,7 +266,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should not find the user by email' do
     login_into_institution
 
-    xhr :get, :find_by_email, email: ''
+    get :find_by_email, email: '', xhr: true
 
     assert_response :success
   end

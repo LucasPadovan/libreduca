@@ -39,9 +39,9 @@ class ImagesControllerTest < ActionController::TestCase
 
   test 'should create image with response in js' do
     assert_difference('Image.count') do
-      xhr :post, :create, format: :js, image: Fabricate.attributes_for(
+      post :create, format: :js, image: Fabricate.attributes_for(
         :image, institution_id: @institution.id
-      )
+      ), xhr: true
     end
 
     assert_template 'images/create'

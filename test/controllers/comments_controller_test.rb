@@ -16,7 +16,7 @@ class CommentsControllerTest < ActionController::TestCase
   test 'should get index presentation comments' do
     presentation = Fabricate(:presentation)
 
-    get :index, presentation_id: presentation
+    get :index, params: { presentation_id: presentation }
     assert_response :success
     assert_not_nil assigns(:comments)
     assert_template 'comments/index'
@@ -29,10 +29,16 @@ class CommentsControllerTest < ActionController::TestCase
     counts = ['forum.comments.count', 'ActionMailer::Base.deliveries.size']
 
     assert_difference counts do
-      xhr :post, :create, forum_id: forum.to_param,
-        comment: Fabricate.attributes_for(:comment,
-          commentable_id: nil, commentable_type: nil
-        ), format: :js
+      post :create, params: {
+          forum_id: forum.to_param,
+          comment: Fabricate.attributes_for(
+              :comment,
+              commentable_id: nil,
+              commentable_type: nil
+          ),
+          format: :js,
+          xhr: true
+      }
     end
 
     assert_response :success
@@ -46,10 +52,16 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_difference('forum.comments.count') do
       assert_no_difference 'ActionMailer::Base.deliveries.size' do
-        xhr :post, :create, forum_id: forum.to_param,
-          comment: Fabricate.attributes_for(
-            :comment, commentable_id: nil, commentable_type: nil
-          ), format: :js
+        post :create, params: {
+            forum_id: forum.to_param,
+            comment: Fabricate.attributes_for(
+                :comment,
+                commentable_id: nil,
+                commentable_type: nil
+            ),
+            format: :js,
+            xhr: true
+        }
       end
     end
 

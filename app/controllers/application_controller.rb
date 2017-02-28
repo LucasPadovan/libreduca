@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_js_format_in_iframe_request
 
-  after_filter -> { expires_now if user_signed_in? }
+  after_action -> { expires_now if user_signed_in? }
 
   def user_for_paper_trail
     current_user.try(:id)
@@ -18,7 +18,9 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_back_or(default_url, *args)
-    redirect_to :back, *args
+    #TODO: check how to pass *args to the fallback location
+    #TODO: check if the fail is risen or remove the rescue
+    redirect_back fallback_location: default_url
   rescue ActionController::RedirectBackError
     redirect_to default_url, *args
   end

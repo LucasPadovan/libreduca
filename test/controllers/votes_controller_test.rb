@@ -21,7 +21,7 @@ class VotesControllerTest < ActionController::TestCase
 
   test 'should create vote' do
     assert_difference ['Vote.count', '@comment.reload.votes_count'] do
-      post :create, comment_id: @comment.to_param, format: 'js'
+      post :create, params: { comment_id: @comment.to_param, format: 'js' }
     end
 
     assert_response :success
@@ -30,7 +30,11 @@ class VotesControllerTest < ActionController::TestCase
   test 'should destroy vote' do
 
     assert_difference ['Vote.count', '@vote.votable.reload.votes_count'], -1 do
-      delete :destroy, id: @vote.id, comment_id: @comment.to_param, format: 'js'
+      delete :destroy, params: {
+          id: @vote.id,
+          comment_id: @comment.to_param,
+          format: 'js'
+      }
     end
 
     assert_response :success

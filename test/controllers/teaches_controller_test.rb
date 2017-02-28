@@ -116,7 +116,10 @@ class TeachesControllerTest < ActionController::TestCase
     end
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      xhr :post, :send_email_summary, course_id: @course.to_param, id: @teach
+      post :send_email_summary,
+          course_id: @course.to_param,
+          id: @teach,
+          xhr: true
     end
 
     assert_response :success

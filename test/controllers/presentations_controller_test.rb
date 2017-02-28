@@ -41,10 +41,13 @@ class PresentationsControllerTest < ActionController::TestCase
     homework = Fabricate(:homework)
 
     assert_difference('Presentation.count') do
-      xhr :post, :create, format: :js, content_id: homework.content, homework_id: homework,
-        presentation: Fabricate.attributes_for(
-          :presentation, user_id: nil, homework_id: nil
-        )
+      post :create, format: :js,
+           content_id: homework.content,
+           homework_id: homework,
+           presentation: Fabricate.attributes_for(
+               :presentation, user_id: nil, homework_id: nil
+           ),
+           xhr: true
     end
 
     assert_template 'presentations/create'

@@ -9,7 +9,7 @@ class CoursesControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, grade_id: @grade.to_param
+    get :index, params: { grade_id: @grade.to_param }
     assert_response :success
     assert_not_nil assigns(:courses)
     assert_template 'courses/index'
@@ -22,7 +22,7 @@ class CoursesControllerTest < ActionController::TestCase
       end
     end
 
-    get :index, grade_id: @grade.to_param, q: 'filtered_index'
+    get :index, params: { grade_id: @grade.to_param, q: 'filtered_index' }
     assert_response :success
     assert_not_nil assigns(:courses)
     assert_equal 3, assigns(:courses).size
@@ -32,7 +32,7 @@ class CoursesControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, grade_id: @grade.to_param
+    get :new, params: { grade_id: @grade.to_param }
     assert_response :success
     assert_not_nil assigns(:course)
     assert_template 'courses/new'
@@ -40,22 +40,24 @@ class CoursesControllerTest < ActionController::TestCase
 
   test 'should create course' do
     assert_difference('Course.count') do
-      post :create, grade_id: @grade.to_param,
-        course: Fabricate.attributes_for(:course)
+      post :create, params: {
+          grade_id: @grade.to_param,
+          course: Fabricate.attributes_for(:course)
+      }
     end
 
     assert_redirected_to grade_course_url(@grade, assigns(:course))
   end
 
   test 'should show course' do
-    get :show, grade_id: @grade.to_param, id: @course
+    get :show, params: { grade_id: @grade.to_param, id: @course }
     assert_response :success
     assert_not_nil assigns(:course)
     assert_template 'courses/show'
   end
 
   test 'should get edit' do
-    get :edit, grade_id: @grade.to_param, id: @course
+    get :edit, params: { grade_id: @grade.to_param, id: @course }
     assert_response :success
     assert_not_nil assigns(:course)
     assert_template 'courses/edit'
@@ -63,8 +65,11 @@ class CoursesControllerTest < ActionController::TestCase
 
   test 'should update course' do
     assert_no_difference 'Course.count' do
-      patch :update, grade_id: @grade.to_param, id: @course,
-        course: Fabricate.attributes_for(:course, name: 'Upd')
+      patch :update, params: {
+          grade_id: @grade.to_param,
+          id: @course,
+          course: Fabricate.attributes_for(:course, name: 'Upd')
+      }
     end
 
     assert_redirected_to grade_course_url(@grade, assigns(:course))
@@ -73,7 +78,7 @@ class CoursesControllerTest < ActionController::TestCase
 
   test 'should destroy course' do
     assert_difference('Course.count', -1) do
-      delete :destroy, grade_id: @grade.to_param, id: @course
+      delete :destroy, params: { grade_id: @grade.to_param, id: @course }
     end
 
     assert_redirected_to grade_courses_url(@grade)

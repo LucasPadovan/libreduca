@@ -9,7 +9,7 @@ class ContentsControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, teach_id: @teach.to_param
+    get :index, params: { teach_id: @teach.to_param }
     assert_response :success
     assert_not_nil assigns(:contents)
     assert_template 'contents/index'
@@ -22,7 +22,7 @@ class ContentsControllerTest < ActionController::TestCase
       end
     end
 
-    get :index, teach_id: @teach.to_param, q: 'filtered_index'
+    get :index, params: { teach_id: @teach.to_param, q: 'filtered_index' }
     assert_response :success
     assert_not_nil assigns(:contents)
     assert_equal 3, assigns(:contents).size
@@ -32,7 +32,7 @@ class ContentsControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, teach_id: @teach.to_param
+    get :new, params: { teach_id: @teach.to_param }
     assert_response :success
     assert_not_nil assigns(:content)
     assert_template 'contents/new'
@@ -41,16 +41,18 @@ class ContentsControllerTest < ActionController::TestCase
   test 'should create content' do
     assert_difference('Content.count') do
       assert_difference ['Document.count', 'Homework.count'], 2 do
-        post :create, teach_id: @teach.to_param,
-          content: Fabricate.attributes_for(:content).merge(
-            documents_attributes: 2.times.map {
-              Fabricate.attributes_for(:document, owner_id: nil, owner_type: nil)
-            }
-          ).merge(
-            homeworks_attributes: 2.times.map {
-              Fabricate.attributes_for(:homework, content_id: nil)
-            }
-          )
+        post :create, params: {
+            teach_id: @teach.to_param,
+            content: Fabricate.attributes_for(:content).merge(
+                documents_attributes: 2.times.map {
+                  Fabricate.attributes_for(:document, owner_id: nil, owner_type: nil)
+                }
+            ).merge(
+              homeworks_attributes: 2.times.map {
+                Fabricate.attributes_for(:homework, content_id: nil)
+              }
+            )
+        }
       end
     end
 
@@ -58,14 +60,14 @@ class ContentsControllerTest < ActionController::TestCase
   end
 
   test 'should show content' do
-    get :show, teach_id: @teach.to_param, id: @content
+    get :show, params: { teach_id: @teach.to_param, id: @content }
     assert_response :success
     assert_not_nil assigns(:content)
     assert_template 'contents/show'
   end
 
   test 'should get edit' do
-    get :edit, teach_id: @teach.to_param, id: @content
+    get :edit, params: { teach_id: @teach.to_param, id: @content }
     assert_response :success
     assert_not_nil assigns(:content)
     assert_template 'contents/edit'
@@ -73,8 +75,11 @@ class ContentsControllerTest < ActionController::TestCase
 
   test 'should update content' do
     assert_no_difference 'Content.count' do
-      patch :update, teach_id: @teach.to_param, id: @content,
-        content: Fabricate.attributes_for(:content, title: 'Upd')
+      patch :update, params: {
+          teach_id: @teach.to_param,
+          id: @content,
+          content: Fabricate.attributes_for(:content, title: 'Upd')
+      }
     end
 
     assert_redirected_to teach_content_url(@teach, assigns(:content))
@@ -83,7 +88,7 @@ class ContentsControllerTest < ActionController::TestCase
 
   test 'should destroy content' do
     assert_difference('Content.count', -1) do
-      delete :destroy, teach_id: @teach.to_param, id: @content
+      delete :destroy, params: { teach_id: @teach.to_param, id: @content }
     end
 
     assert_redirected_to teach_contents_url(@teach)
