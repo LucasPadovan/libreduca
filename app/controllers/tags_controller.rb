@@ -11,7 +11,7 @@ class TagsController < ApplicationController
   def index
     @tags = @tags.filtered_list(params[:q]).where(
       tagger_type: params[:type]
-    ).page(params[:page]).uniq('id')
+    ).page(params[:page]).distinct('id')
 
     respond_to do |format|
       format.html # index.html.erb

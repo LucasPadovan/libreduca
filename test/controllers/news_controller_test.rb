@@ -41,16 +41,18 @@ class NewsControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_difference 'News.count' do
-      post :create, news: Fabricate.attributes_for(
-        :news, institution_id: @institution.id
-      )
+      post :create, params: {
+          news: Fabricate.attributes_for(
+              :news, institution_id: @institution.id
+          )
+      }
     end
 
     assert_redirected_to news_url(assigns(:news))
   end
 
   test 'should show public news' do
-    get :show, id: @news
+    get :show, params: { id: @news }
     assert_response :success
     assert_not_nil assigns(:news)
     assert_template "news/show", layout: 'layouts/application'
@@ -59,7 +61,7 @@ class NewsControllerTest < ActionController::TestCase
   test 'should show news' do
     sign_in @user
 
-    get :show, id: @news
+    get :show, params: { id: @news }
     assert_response :success
     assert_not_nil assigns(:news)
     assert_template 'news/show'
@@ -68,7 +70,7 @@ class NewsControllerTest < ActionController::TestCase
   test 'should get edit' do
     sign_in @user
 
-    get :edit, id: @news
+    get :edit, params: { id: @news }
     assert_response :success
     assert_not_nil assigns(:news)
     assert_template 'news/edit'
@@ -78,9 +80,13 @@ class NewsControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_no_difference 'News.count' do
-      patch :update, id: @news, news: Fabricate.attributes_for(:news,
-        title: 'new value', institution_id: @institution.id
-      )
+      patch :update, params: {
+          id: @news, news: Fabricate.attributes_for(
+              :news,
+              title: 'new value',
+              institution_id: @institution.id
+          )
+      }
     end
 
     assert_redirected_to news_url(assigns(:news))
@@ -90,7 +96,7 @@ class NewsControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_difference('News.count', -1) do
-      delete :destroy, id: @news
+      delete :destroy, params: { id: @news }
     end
 
     assert_redirected_to news_index_path

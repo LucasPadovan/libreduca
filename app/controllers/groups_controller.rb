@@ -11,7 +11,7 @@ class GroupsController < ApplicationController
   def index
     @title = t('view.groups.index_title')
     @searchable = true
-    @groups = @groups.filtered_list(params[:q]).page(params[:page]).uniq('id')
+    @groups = @groups.filtered_list(params[:q]).page(params[:page]).distinct('id')
 
     respond_to do |format|
       format.html # index.html.erb

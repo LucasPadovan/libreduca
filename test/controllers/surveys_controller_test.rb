@@ -11,7 +11,7 @@ class SurveysControllerTest < ActionController::TestCase
   end
 
   test 'should get teach index' do
-    get :index, teach_id: @teach
+    get :index, params: { teach_id: @teach }
     assert_response :success
     assert_not_nil assigns(:surveys)
     assert_not_nil assigns(:teach)
@@ -19,7 +19,7 @@ class SurveysControllerTest < ActionController::TestCase
   end
 
   test 'should get content index' do
-    get :index, content_id: @content
+    get :index, params: { content_id: @content }
     assert_response :success
     assert_not_nil assigns(:surveys)
     assert_not_nil assigns(:content)
@@ -27,7 +27,7 @@ class SurveysControllerTest < ActionController::TestCase
   end
 
   test 'should get teach index in csv' do
-    get :index, teach_id: @teach, format: :csv
+    get :index, params: { teach_id: @teach, format: :csv }
     assert_response :success
     assert_not_nil assigns(:surveys)
 
@@ -35,7 +35,7 @@ class SurveysControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, content_id: @content
+    get :new, params: { content_id: @content }
     assert_response :success
     assert_not_nil assigns(:survey)
     assert_template 'surveys/new'
@@ -43,8 +43,10 @@ class SurveysControllerTest < ActionController::TestCase
 
   test 'should create survey' do
     assert_difference('Survey.count') do
-      post :create, content_id: @content, survey:
-        Fabricate.attributes_for(:survey, content_id: nil)
+      post :create, params: {
+          content_id: @content,
+          survey: Fabricate.attributes_for(:survey, content_id: nil)
+      }
     end
 
     assert_redirected_to content_survey_url(@content, assigns(:survey))
@@ -57,14 +59,14 @@ class SurveysControllerTest < ActionController::TestCase
       end
     end
 
-    get :show, content_id: @content, id: @survey
+    get :show, params: { content_id: @content, id: @survey }
     assert_response :success
     assert_not_nil assigns(:survey)
     assert_template 'surveys/show'
   end
 
   test 'should show survey in csv' do
-    get :show, content_id: @content, id: @survey, format: :csv
+    get :show, params: { content_id: @content, id: @survey, format: :csv }
     assert_response :success
     assert_not_nil assigns(:survey)
 
@@ -72,22 +74,25 @@ class SurveysControllerTest < ActionController::TestCase
   end
 
   test 'should get edit' do
-    get :edit, content_id: @content, id: @survey
+    get :edit, params: { content_id: @content, id: @survey }
     assert_response :success
     assert_not_nil assigns(:survey)
     assert_template 'surveys/edit'
   end
 
   test 'should update survey' do
-    patch :update, content_id: @content, id: @survey, survey:
-      Fabricate.attributes_for(:survey, content_id: nil).except(:content_id)
+    patch :update, params: {
+        content_id: @content,
+        id: @survey,
+        survey: Fabricate.attributes_for(:survey, content_id: nil).except(:content_id)
+    }
 
     assert_redirected_to content_survey_url(@content, assigns(:survey))
   end
 
   test 'should destroy survey' do
     assert_difference('Survey.count', -1) do
-      delete :destroy, id: @survey, content_id: @content
+      delete :destroy, params: { id: @survey, content_id: @content }
     end
 
     assert_redirected_to content_surveys_url(@content)

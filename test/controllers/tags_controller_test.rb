@@ -18,7 +18,7 @@ class TagsControllerTest < ActionController::TestCase
       Fabricate(:tag, name: "in_filtered_index_#{name}", institution_id: @institution.id)
     }
 
-    get :index, q: 'filtered_index', type: @tag.tagger_type
+    get :index, params: { q: 'filtered_index', type: @tag.tagger_type }
     assert_response :success
     assert_not_nil assigns(:tags)
     assert_equal 3, assigns(:tags).size
@@ -32,7 +32,7 @@ class TagsControllerTest < ActionController::TestCase
       Fabricate(:tag, name: "in_filtered_index_#{name}", institution_id: @institution.id)
     }
 
-    get :index, q: 'filtered_index', type: @tag.tagger_type, format: 'json'
+    get :index, params: { q: 'filtered_index', type: @tag.tagger_type, format: 'json' }
     assert_response :success
 
     tags = ActiveSupport::JSON.decode(@response.body)
@@ -40,7 +40,7 @@ class TagsControllerTest < ActionController::TestCase
     assert_equal 3, tags.size
     assert tags.all? { |t| t['label'].match /filtered_index/i }
 
-    get :index, q: 'no_tag', type: @tag.tagger_type, format: 'json'
+    get :index, params: { q: 'no_tag', type: @tag.tagger_type, format: 'json' }
     assert_response :success
 
     tags = ActiveSupport::JSON.decode(@response.body)

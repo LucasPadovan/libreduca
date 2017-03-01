@@ -17,7 +17,7 @@ class InstitutionsControllerTest < ActionController::TestCase
   test 'should get filtered index' do
     3.times { Fabricate(:institution, name: 'in_filtered_index') }
 
-    get :index, q: 'filtered_index'
+    get :index, params: { q: 'filtered_index' }
     assert_response :success
     assert_not_nil assigns(:institutions)
     assert_equal 3, assigns(:institutions).size
@@ -29,7 +29,7 @@ class InstitutionsControllerTest < ActionController::TestCase
   test 'should get filtered index in json' do
     3.times { Fabricate(:institution, name: 'in_filtered_index') }
 
-    get :index, q: 'filtered_index', format: 'json'
+    get :index, params: { q: 'filtered_index', format: 'json' }
     assert_response :success
 
     institutions = ActiveSupport::JSON.decode(@response.body)
@@ -37,7 +37,7 @@ class InstitutionsControllerTest < ActionController::TestCase
     assert_equal 3, institutions.size
     assert institutions.all? { |s| s['label'].match /filtered_index/i }
 
-    get :index, q: 'no_institution', format: 'json'
+    get :index, params: { q: 'no_institution', format: 'json' }
     assert_response :success
 
     institutions = ActiveSupport::JSON.decode(@response.body)
@@ -54,21 +54,23 @@ class InstitutionsControllerTest < ActionController::TestCase
 
   test 'should create institution' do
     assert_difference('Institution.count') do
-      post :create, institution: Fabricate.attributes_for(:institution)
+      post :create, params: {
+          institution: Fabricate.attributes_for(:institution)
+      }
     end
 
     assert_redirected_to institution_url(assigns(:institution))
   end
 
   test 'should show institution' do
-    get :show, id: @institution
+    get :show, params: { id: @institution }
     assert_response :success
     assert_not_nil assigns(:institution)
     assert_template 'institutions/show'
   end
 
   test 'should get edit' do
-    get :edit, id: @institution
+    get :edit, params: { id: @institution }
     assert_response :success
     assert_not_nil assigns(:institution)
     assert_template 'institutions/edit'
@@ -76,8 +78,10 @@ class InstitutionsControllerTest < ActionController::TestCase
 
   test 'should update institution' do
     assert_no_difference 'Institution.count' do
-      patch :update, id: @institution,
-        institution: Fabricate.attributes_for(:institution, name: 'Upd')
+      patch :update, params: {
+          id: @institution,
+          institution: Fabricate.attributes_for(:institution, name: 'Upd')
+      }
     end
 
     assert_redirected_to institution_url(assigns(:institution))
@@ -86,7 +90,7 @@ class InstitutionsControllerTest < ActionController::TestCase
 
   test 'should destroy institution' do
     assert_difference('Institution.count', -1) do
-      delete :destroy, id: @institution
+      delete :destroy, params: { id: @institution }
     end
 
     assert_redirected_to institutions_url

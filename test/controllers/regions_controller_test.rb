@@ -21,7 +21,7 @@ class RegionsControllerTest < ActionController::TestCase
       end
     end
 
-    get :index, q: 'filtered_index'
+    get :index, params: { q: 'filtered_index' }
     assert_response :success
     assert_not_nil assigns(:regions)
     assert_equal 3, assigns(:regions).size
@@ -39,7 +39,7 @@ class RegionsControllerTest < ActionController::TestCase
 
   test 'should create region' do
     assert_difference('Region.count') do
-      post :create, region: Fabricate.attributes_for(:region)
+      post :create, params: { region: Fabricate.attributes_for(:region) }
     end
 
     assert_redirected_to region_url(assigns(:region))
@@ -47,25 +47,27 @@ class RegionsControllerTest < ActionController::TestCase
 
   test 'should create region and district' do
     assert_difference ['Region.count', 'District.count'] do
-      post :create, region: Fabricate.attributes_for(:region).merge(
-        districts_attributes: [
-          Fabricate.attributes_for(:district, region_id: nil)
-        ]
-      )
+      post :create, params: {
+          region: Fabricate.attributes_for(:region).merge(
+              districts_attributes: [
+                  Fabricate.attributes_for(:district, region_id: nil)
+              ]
+          )
+      }
     end
 
     assert_redirected_to region_url(assigns(:region))
   end
 
   test 'should show region' do
-    get :show, id: @region
+    get :show, params: { id: @region }
     assert_response :success
     assert_not_nil assigns(:region)
     assert_template 'regions/show'
   end
 
   test 'should get edit' do
-    get :edit, id: @region
+    get :edit, params: { id: @region }
     assert_response :success
     assert_not_nil assigns(:region)
     assert_template 'regions/edit'
@@ -73,8 +75,10 @@ class RegionsControllerTest < ActionController::TestCase
 
   test 'should update region' do
     assert_no_difference 'Region.count' do
-      patch :update, id: @region,
-        region: Fabricate.attributes_for(:region, name: 'Upd')
+      patch :update, params: {
+          id: @region,
+          region: Fabricate.attributes_for(:region, name: 'Upd')
+      }
     end
 
     assert_redirected_to region_url(assigns(:region))
@@ -83,7 +87,7 @@ class RegionsControllerTest < ActionController::TestCase
 
   test 'should destroy region' do
     assert_difference('Region.count', -1) do
-      delete :destroy, id: @region
+      delete :destroy, params: { id: @region }
     end
 
     assert_redirected_to regions_url

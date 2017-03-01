@@ -9,14 +9,14 @@ class RepliesControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, survey_id: Fabricate(:survey).id, user_id: Fabricate(:user).id
+    get :index, params: { survey_id: Fabricate(:survey).id, user_id: Fabricate(:user).id }
     assert_response :success
     assert_not_nil assigns(:replies)
     assert_template 'replies/index'
   end
 
   test 'should get new' do
-    get :new, question_id: @question
+    get :new, params: { question_id: @question }
     assert_response :success
     assert_not_nil assigns(:reply)
     assert_template 'replies/new'
@@ -24,21 +24,21 @@ class RepliesControllerTest < ActionController::TestCase
 
   test 'should create reply' do
     assert_difference('Reply.count') do
-      post :create, question_id: @question, reply: Fabricate.attributes_for(:reply)
+      post :create, params: { question_id: @question, reply: Fabricate.attributes_for(:reply) }
     end
 
     assert_redirected_to question_reply_url(@question, assigns(:reply))
   end
 
   test 'should show reply' do
-    get :show, id: @reply, question_id: @question
+    get :show, params: { id: @reply, question_id: @question }
     assert_response :success
     assert_not_nil assigns(:reply)
     assert_template 'replies/show'
   end
 
   test 'should get edit' do
-    get :edit, id: @reply, question_id: @question
+    get :edit, params: { id: @reply, question_id: @question }
     assert_response :success
     assert_not_nil assigns(:reply)
     assert_template 'replies/edit'
@@ -48,8 +48,11 @@ class RepliesControllerTest < ActionController::TestCase
     new_question = Fabricate(:question)
 
     assert_no_difference 'Reply.count' do
-      patch :update, id: @reply, question_id: @question,
-        reply: { question_id: new_question.id }
+      patch :update, params: {
+          id: @reply,
+          question_id: @question,
+          reply: { question_id: new_question.id }
+      }
     end
 
     assert_redirected_to question_reply_url(@question, assigns(:reply))

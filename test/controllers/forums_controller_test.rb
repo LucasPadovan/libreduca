@@ -17,7 +17,7 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, institution_id: @owner.to_param
+    get :index, params: { institution_id: @owner.to_param }
     assert_response :success
     assert_not_nil assigns(:forums)
     assert_template 'forums/index'
@@ -30,7 +30,7 @@ class ForumsControllerTest < ActionController::TestCase
       end
     end
 
-    get :index, institution_id: @owner.to_param, q: 'filtered_index'
+    get :index, params: { institution_id: @owner.to_param, q: 'filtered_index' }
     assert_response :success
     assert_not_nil assigns(:forums)
     assert_equal 3, assigns(:forums).size
@@ -40,7 +40,7 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, institution_id: @owner.to_param
+    get :new, params: { institution_id: @owner.to_param }
     assert_response :success
     assert_not_nil assigns(:forum)
     assert_template 'forums/new'
@@ -48,8 +48,10 @@ class ForumsControllerTest < ActionController::TestCase
 
   test 'should create forum' do
     assert_difference(['Forum.count', 'ActionMailer::Base.deliveries.size']) do
-      post :create, institution_id: @owner.to_param,
-        forum: Fabricate.attributes_for(:forum)
+      post :create, params: {
+          institution_id: @owner.to_param,
+          forum: Fabricate.attributes_for(:forum)
+      }
     end
 
     assert_redirected_to institution_forum_url(@owner, assigns(:forum))
@@ -57,14 +59,14 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
   test 'should show forum' do
-    get :show, institution_id: @owner.to_param, id: @forum
+    get :show, params: { institution_id: @owner.to_param, id: @forum }
     assert_response :success
     assert_not_nil assigns(:forum)
     assert_template 'forums/show'
   end
 
   test 'should get edit' do
-    get :edit, institution_id: @owner.to_param, id: @forum
+    get :edit, params: { institution_id: @owner.to_param, id: @forum }
     assert_response :success
     assert_not_nil assigns(:forum)
     assert_template 'forums/edit'
@@ -72,8 +74,11 @@ class ForumsControllerTest < ActionController::TestCase
 
   test 'should update forum' do
     assert_no_difference 'Forum.count' do
-      patch :update, institution_id: @owner.to_param, id: @forum,
-        forum: Fabricate.attributes_for(:forum, name: 'Upd')
+      patch :update, params: {
+          institution_id: @owner.to_param,
+          id: @forum,
+          forum: Fabricate.attributes_for(:forum, name: 'Upd')
+      }
     end
 
     assert_redirected_to institution_forum_url(@owner, assigns(:forum))
@@ -82,7 +87,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   test 'should destroy forum' do
     assert_difference('Forum.count', -1) do
-      delete :destroy, institution_id: @owner.to_param, id: @forum
+      delete :destroy, params: { institution_id: @owner.to_param, id: @forum }
     end
 
     assert_redirected_to institution_forums_url(@owner)

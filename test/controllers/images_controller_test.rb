@@ -29,9 +29,11 @@ class ImagesControllerTest < ActionController::TestCase
 
   test 'should create image' do
     assert_difference('Image.count') do
-      post :create, image: Fabricate.attributes_for(
-        :image, institution_id: @institution.id
-      )
+      post :create, params: {
+          image: Fabricate.attributes_for(
+              :image, institution_id: @institution.id
+          )
+      }
     end
 
     assert_redirected_to image_url(assigns(:image))
@@ -39,9 +41,13 @@ class ImagesControllerTest < ActionController::TestCase
 
   test 'should create image with response in js' do
     assert_difference('Image.count') do
-      post :create, format: :js, image: Fabricate.attributes_for(
-        :image, institution_id: @institution.id
-      ), xhr: true
+      post :create, params: {
+          format: :js,
+          image: Fabricate.attributes_for(
+              :image, institution_id: @institution.id
+          ),
+          xhr: true
+      }
     end
 
     assert_template 'images/create'
@@ -49,14 +55,14 @@ class ImagesControllerTest < ActionController::TestCase
 
 
   test 'should show image' do
-    get :show, id: @image
+    get :show, params: { id: @image }
     assert_response :success
     assert_not_nil assigns(:image)
     assert_template 'images/show'
   end
 
   test 'should get edit' do
-    get :edit, id: @image
+    get :edit, params: { id: @image }
     assert_response :success
     assert_not_nil assigns(:image)
     assert_template 'images/edit'
@@ -64,7 +70,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test 'should update image' do
     assert_no_difference 'Image.count' do
-      patch :update, id: @image, image: { name: 'Updated' }
+      patch :update, params: { id: @image, image: { name: 'Updated' } }
     end
 
     assert_redirected_to image_url(assigns(:image))
@@ -73,7 +79,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test 'should destroy image' do
     assert_difference('Image.count', -1) do
-      delete :destroy, id: @image
+      delete :destroy, params: { id: @image }
     end
 
     assert_redirected_to images_url

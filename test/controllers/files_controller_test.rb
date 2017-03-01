@@ -13,7 +13,9 @@ class FilesControllerTest < ActionController::TestCase
   end
 
   test 'should download file' do
-    get :download, path: @document.file.current_path.sub("#{PRIVATE_PATH}/", '')
+    get :download, params: {
+        path: @document.file.current_path.sub("#{PRIVATE_PATH}/", '')
+    }
     assert_response :success
     assert_equal(
       File.open(@document.file.current_path, encoding: 'ASCII-8BIT').read,
@@ -22,7 +24,7 @@ class FilesControllerTest < ActionController::TestCase
   end
 
   test 'should not download file' do
-    get :download, path: 'wrong/path.txt'
+    get :download, params: { path: 'wrong/path.txt' }
     assert_redirected_to root_url
     assert_equal I18n.t('view.documents.non_existent'), flash.notice
   end
@@ -30,7 +32,9 @@ class FilesControllerTest < ActionController::TestCase
   test 'should download for the owners institution' do
     @request.host = "#{@institution.identification}.lvh.me"
 
-    get :download, path: @document.file.current_path.sub("#{PRIVATE_PATH}/", '')
+    get :download, params: {
+        path: @document.file.current_path.sub("#{PRIVATE_PATH}/", '')
+    }
     assert_response :success
     assert_equal(
       File.open(@document.file.current_path, encoding: 'ASCII-8BIT').read,
@@ -42,7 +46,9 @@ class FilesControllerTest < ActionController::TestCase
     institution = Fabricate(:institution)
     @request.host = "#{institution.identification}.lvh.me"
 
-    get :download, path: @document.file.current_path.sub("#{PRIVATE_PATH}/", '')
+    get :download, params: {
+        path: @document.file.current_path.sub("#{PRIVATE_PATH}/", '')
+    }
     assert_redirected_to root_url
     assert_equal I18n.t('view.documents.non_existent'), flash.notice
   end

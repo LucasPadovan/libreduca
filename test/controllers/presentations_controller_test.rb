@@ -11,14 +11,14 @@ class PresentationsControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, content_id: @content, homework_id: @homework
+    get :index, params: { content_id: @content, homework_id: @homework }
     assert_response :success
     assert_not_nil assigns(:presentations)
     assert_template 'presentations/index'
   end
 
   test 'should get new' do
-    get :new, content_id: @content, homework_id: @homework
+    get :new, params: { content_id: @content, homework_id: @homework }
     assert_response :success
     assert_not_nil assigns(:presentation)
     assert_template 'presentations/new'
@@ -28,10 +28,13 @@ class PresentationsControllerTest < ActionController::TestCase
     homework = Fabricate(:homework)
 
     assert_difference('Presentation.count') do
-      post :create, content_id: homework.content, homework_id: homework,
-        presentation: Fabricate.attributes_for(
-          :presentation, user_id: nil, homework_id: nil
-        )
+      post :create, params: {
+          content_id: homework.content,
+          homework_id: homework,
+          presentation: Fabricate.attributes_for(
+              :presentation, user_id: nil, homework_id: nil
+          )
+      }
     end
 
     assert_redirected_to teach_content_url(homework.content.teach, homework.content)
@@ -41,13 +44,15 @@ class PresentationsControllerTest < ActionController::TestCase
     homework = Fabricate(:homework)
 
     assert_difference('Presentation.count') do
-      post :create, format: :js,
-           content_id: homework.content,
-           homework_id: homework,
-           presentation: Fabricate.attributes_for(
-               :presentation, user_id: nil, homework_id: nil
-           ),
-           xhr: true
+      post :create, params: {
+          format: :js,
+          content_id: homework.content,
+          homework_id: homework,
+          presentation: Fabricate.attributes_for(
+              :presentation, user_id: nil, homework_id: nil
+          ),
+          xhr: true
+      }
     end
 
     assert_template 'presentations/create'
@@ -55,7 +60,11 @@ class PresentationsControllerTest < ActionController::TestCase
 
 
   test 'should show presentation' do
-    get :show, content_id: @content, homework_id: @homework, id: @presentation
+    get :show, params: {
+        content_id: @content,
+        homework_id: @homework,
+        id: @presentation
+    }
     assert_response :success
     assert_not_nil assigns(:presentation)
     assert_template 'presentations/show'
@@ -63,8 +72,11 @@ class PresentationsControllerTest < ActionController::TestCase
 
   test 'should destroy presentation' do
     assert_difference('Presentation.count', -1) do
-      delete :destroy, content_id: @content, homework_id: @homework,
-        id: @presentation
+      delete :destroy, params: {
+          content_id: @content,
+          homework_id: @homework,
+          id: @presentation
+      }
     end
 
     assert_redirected_to teach_content_url(@content.teach, @content)

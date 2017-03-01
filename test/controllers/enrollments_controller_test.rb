@@ -11,9 +11,11 @@ class EnrollmentsControllerTest < ActionController::TestCase
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
       post :send_email_summary,
-           user_id: enrollment.enrollable.id,
-           id: enrollment.id,
-           xhr: true
+           params: {
+              user_id: enrollment.enrollable.id,
+              id: enrollment.id,
+              xhr: true
+           }
     end
 
     assert_response :success

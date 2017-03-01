@@ -11,8 +11,10 @@ class JobsControllerTest < ActionController::TestCase
     another_user = Fabricate(:user)
 
     assert_difference('Job.count') do
-      post :create, user_id: another_user.to_param,
-        job: Fabricate.attributes_for(:job, institution_id: institution.id, user_id: another_user.id)
+      post :create, params: {
+          user_id: another_user.to_param,
+          job: Fabricate.attributes_for(:job, institution_id: institution.id, user_id: another_user.id)
+      }
     end
 
     assert_response :redirect

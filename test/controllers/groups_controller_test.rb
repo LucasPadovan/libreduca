@@ -26,41 +26,45 @@ class GroupsControllerTest < ActionController::TestCase
 
   test 'should create group' do
     assert_difference('Group.count') do
-      post :create, group: Fabricate.attributes_for(:group).merge(
-        memberships_attributes: 1.times.map {
-          Fabricate.attributes_for(
-            :membership, user_id: @user.id, group_id: @group.id
+      post :create, params: {
+          group: Fabricate.attributes_for(:group).merge(
+              memberships_attributes: 1.times.map {
+                Fabricate.attributes_for(
+                    :membership, user_id: @user.id, group_id: @group.id
+                )
+              }
           )
-        }
-      )
+      }
     end
 
     assert_redirected_to group_url(assigns(:group))
   end
 
   test 'should show group' do
-    get :show, id: @group
+    get :show, params: { id: @group }
     assert_response :success
     assert_not_nil assigns(:group)
     assert_template 'groups/show'
   end
 
   test 'should get edit' do
-    get :edit, id: @group
+    get :edit, params: { id: @group }
     assert_response :success
     assert_not_nil assigns(:group)
     assert_template 'groups/edit'
   end
 
   test 'should update group' do
-    patch :update, id: @group,
-      group: Fabricate.attributes_for(:group)
+    patch :update, params: {
+        id: @group,
+        group: Fabricate.attributes_for(:group)
+    }
     assert_redirected_to group_url(assigns(:group))
   end
 
   test 'should destroy group' do
     assert_difference('Group.count', -1) do
-      delete :destroy, id: @group
+      delete :destroy, params: { id: @group }
     end
 
     assert_redirected_to groups_path

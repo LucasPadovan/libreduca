@@ -19,7 +19,7 @@ class TeachesController < ApplicationController
   # GET /teaches.json
   def index
     @title = t 'view.teaches.index_title'
-    @teaches = @teaches.page(params[:page]).uniq('id')
+    @teaches = @teaches.page(params[:page]).distinct('id')
     @teaches = @teaches.in_institution(current_institution) if current_institution
     @teaches = @teaches.historic if @user
 

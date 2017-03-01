@@ -19,7 +19,7 @@ class UsersControllerTest < ActionController::TestCase
 
     3.times { Fabricate(:user, lastname: 'in_filtered_index') }
 
-    get :index, q: 'filtered_index'
+    get :index, params: { q: 'filtered_index' }
     assert_response :success
     assert_not_nil assigns(:users)
     assert_equal 3, assigns(:users).size
@@ -33,7 +33,7 @@ class UsersControllerTest < ActionController::TestCase
 
     3.times { Fabricate(:user, name: 'in_filtered_index') }
 
-    get :index, q: 'filtered_index', format: 'json'
+    get :index, params: { q: 'filtered_index', format: 'json' }
     assert_response :success
 
     users = ActiveSupport::JSON.decode(@response.body)
@@ -41,7 +41,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal 3, users.size
     assert users.all? { |u| u['label'].match /filtered_index/i }
 
-    get :index, q: 'no_user', format: 'json'
+    get :index, params: { q: 'no_user', format: 'json' }
     assert_response :success
 
     users = ActiveSupport::JSON.decode(@response.body)
@@ -79,7 +79,7 @@ class UsersControllerTest < ActionController::TestCase
       end
     end
 
-    get :index, q: 'filtered_index'
+    get :index, params: { q: 'filtered_index' }
     assert_response :success
     assert_not_nil assigns(:users)
     assert_equal 3, assigns(:users).size
@@ -100,7 +100,7 @@ class UsersControllerTest < ActionController::TestCase
       end
     end
 
-    get :index, q: 'filtered_index', format: 'json'
+    get :index, params: { q: 'filtered_index', format: 'json' }
     assert_response :success
 
     users = ActiveSupport::JSON.decode(@response.body)
@@ -108,7 +108,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal 3, users.size
     assert users.all? { |s| s['label'].match /filtered_index/i }
 
-    get :index, q: 'no_user', format: 'json'
+    get :index, params: { q: 'no_user', format: 'json' }
     assert_response :success
 
     users = ActiveSupport::JSON.decode(@response.body)
@@ -130,7 +130,7 @@ class UsersControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_difference('User.count') do
-      post :create, user: Fabricate.attributes_for(:user)
+      post :create, params: { user: Fabricate.attributes_for(:user) }
     end
 
     assert_redirected_to user_url(assigns(:user))
@@ -139,7 +139,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should show user' do
     sign_in @user
 
-    get :show, id: @user
+    get :show, params: { id: @user }
     assert_response :success
     assert_not_nil assigns(:user)
     assert_template 'users/show'
@@ -148,7 +148,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should get edit' do
     sign_in @user
 
-    get :edit, id: @user
+    get :edit, params: { id: @user }
     assert_response :success
     assert_not_nil assigns(:user)
     assert_template 'users/edit'
@@ -158,7 +158,7 @@ class UsersControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_no_difference 'User.count' do
-      patch :update, id: @user, user: Fabricate.attributes_for(:user, name: 'Upd')
+      patch :update, params: { id: @user, user: Fabricate.attributes_for(:user, name: 'Upd') }
     end
 
     assert_redirected_to user_url(assigns(:user))
@@ -169,7 +169,7 @@ class UsersControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_difference('User.count', -1) do
-      delete :destroy, id: @user
+      delete :destroy, params: { id: @user }
     end
 
     assert_redirected_to users_url
@@ -186,7 +186,7 @@ class UsersControllerTest < ActionController::TestCase
     assert job.active
 
     assert_no_difference('User.count') do
-      delete :destroy, id: @user
+      delete :destroy, params: { id: @user }
     end
 
     assert !job.reload.active
@@ -198,7 +198,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should get edit profile' do
     sign_in @user
 
-    get :edit_profile, id: @user
+    get :edit_profile, params: { id: @user }
     assert_response :success
     assert_not_nil assigns(:user)
     assert_equal @user.id, assigns(:user).id
@@ -209,8 +209,10 @@ class UsersControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_no_difference 'User.count' do
-      patch :update_profile, id: @user,
-        user: Fabricate.attributes_for(:user, name: 'Upd')
+      patch :update_profile, params: {
+          id: @user,
+          user: Fabricate.attributes_for(:user, name: 'Upd')
+      }
     end
 
     assert_redirected_to edit_profile_users_url
@@ -222,7 +224,7 @@ class UsersControllerTest < ActionController::TestCase
 
     sign_in @user
 
-    get :edit_profile, id: another_user
+    get :edit_profile, params: { id: another_user }
     assert_response :success
     assert_not_nil assigns(:user)
     assert_not_equal another_user.id, assigns(:user).id
@@ -236,8 +238,10 @@ class UsersControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_no_difference 'User.count' do
-      patch :update_profile, id: another_user,
-        user: Fabricate.attributes_for(:user, name: 'Upd')
+      patch :update_profile, params: {
+          id: another_user,
+          user: Fabricate.attributes_for(:user, name: 'Upd')
+      }
     end
 
     assert_redirected_to edit_profile_users_url
@@ -248,7 +252,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should find the user by email' do
     login_into_institution
 
-    get :find_by_email, email: @user.email, xhr: true
+    get :find_by_email, params: { email: @user.email, xhr: true }
 
     assert_match edit_user_url(@user), @response.body
   end
@@ -258,7 +262,7 @@ class UsersControllerTest < ActionController::TestCase
     another_user = Fabricate(:user)
     job = Fabricate(:job, institution_id: institution.id)
 
-    get :find_by_email, email: another_user.email, xhr: true
+    get :find_by_email, params: { email: another_user.email, xhr: true }
 
     assert_match new_user_job_url(another_user), @response.body
   end
@@ -266,7 +270,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should not find the user by email' do
     login_into_institution
 
-    get :find_by_email, email: '', xhr: true
+    get :find_by_email, params: { email: '', xhr: true }
 
     assert_response :success
   end

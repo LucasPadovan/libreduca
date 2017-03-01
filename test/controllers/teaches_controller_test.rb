@@ -9,14 +9,14 @@ class TeachesControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, course_id: @course.to_param
+    get :index, params: { course_id: @course.to_param }
     assert_response :success
     assert_not_nil assigns(:teaches)
     assert_template 'teaches/index'
   end
 
   test 'should get new' do
-    get :new, course_id: @course.to_param
+    get :new, params: { course_id: @course.to_param }
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_template 'teaches/new'
@@ -24,22 +24,24 @@ class TeachesControllerTest < ActionController::TestCase
 
   test 'should create teach' do
     assert_difference('Teach.count') do
-      post :create, course_id: @course.to_param,
-        teach: Fabricate.attributes_for(:teach, course_id: @course.id)
+      post :create, params: {
+          course_id: @course.to_param,
+          teach: Fabricate.attributes_for(:teach, course_id: @course.id)
+      }
     end
 
     assert_redirected_to teach_url(assigns(:teach))
   end
 
   test 'should show teach' do
-    get :show, course_id: @course.to_param, id: @teach
+    get :show, params: { course_id: @course.to_param, id: @teach }
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_template 'teaches/show'
   end
 
   test 'should get edit' do
-    get :edit, course_id: @course.to_param, id: @teach
+    get :edit, params: { course_id: @course.to_param, id: @teach }
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_template 'teaches/edit'
@@ -47,8 +49,11 @@ class TeachesControllerTest < ActionController::TestCase
 
   test 'should update teach' do
     assert_no_difference 'Teach.count' do
-      patch :update, course_id: @course.to_param, id: @teach,
-        teach: Fabricate.attributes_for(:teach, start: Date.tomorrow)
+      patch :update, params: {
+          course_id: @course.to_param,
+          id: @teach,
+          teach: Fabricate.attributes_for(:teach, start: Date.tomorrow)
+      }
     end
 
     assert_redirected_to teach_url(assigns(:teach))
@@ -57,21 +62,21 @@ class TeachesControllerTest < ActionController::TestCase
 
   test 'should destroy teach' do
     assert_difference('Teach.count', -1) do
-      delete :destroy, course_id: @course.to_param, id: @teach
+      delete :destroy, params: { course_id: @course.to_param, id: @teach }
     end
 
     assert_redirected_to course_teaches_url(@course)
   end
 
   test 'should show teach scores' do
-    get :show_scores, course_id: @course.to_param, id: @teach
+    get :show_scores, params: { course_id: @course.to_param, id: @teach }
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_template 'teaches/show_scores'
   end
 
   test 'should show teach enrollments' do
-    get :show_enrollments, course_id: @course.to_param, id: @teach
+    get :show_enrollments, params: { course_id: @course.to_param, id: @teach }
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_template 'teaches/show_enrollments'
@@ -80,7 +85,7 @@ class TeachesControllerTest < ActionController::TestCase
   test 'should show teach tracking' do
     2.times { Fabricate(:enrollment, teach_id: @teach.id, with_job: 'student') }
 
-    get :show_tracking, course_id: @course.to_param, id: @teach
+    get :show_tracking, params: { course_id: @course.to_param, id: @teach }
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_template 'teaches/show_tracking'
@@ -89,7 +94,7 @@ class TeachesControllerTest < ActionController::TestCase
   test 'should download teach tracking in csv' do
     2.times { Fabricate(:enrollment, teach_id: @teach.id, with_job: 'student') }
 
-    get :show_tracking, course_id: @course.to_param, id: @teach, format: :csv
+    get :show_tracking, params: { course_id: @course.to_param, id: @teach, format: :csv }
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_template 'teaches/show_tracking'
@@ -97,14 +102,14 @@ class TeachesControllerTest < ActionController::TestCase
   end
 
   test 'should get edit teach scores' do
-    get :edit_scores, course_id: @course.to_param, id: @teach
+    get :edit_scores, params: { course_id: @course.to_param, id: @teach }
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_template 'teaches/edit_scores'
   end
 
   test 'should get edit teach enrollments' do
-    get :edit_enrollments, course_id: @course.to_param, id: @teach
+    get :edit_enrollments, params: { course_id: @course.to_param, id: @teach }
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_template 'teaches/edit_enrollments'
@@ -116,10 +121,11 @@ class TeachesControllerTest < ActionController::TestCase
     end
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      post :send_email_summary,
+      post :send_email_summary, params: {
           course_id: @course.to_param,
           id: @teach,
           xhr: true
+      }
     end
 
     assert_response :success

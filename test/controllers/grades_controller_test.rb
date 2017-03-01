@@ -9,7 +9,7 @@ class GradesControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, institution_id: @institution.to_param
+    get :index, params: { institution_id: @institution.to_param }
     assert_response :success
     assert_not_nil assigns(:grades)
     assert_template 'grades/index'
@@ -22,7 +22,10 @@ class GradesControllerTest < ActionController::TestCase
       end
     end
 
-    get :index, institution_id: @institution.to_param, q: 'filtered_index'
+    get :index, params: {
+        institution_id: @institution.to_param,
+        q: 'filtered_index'
+    }
     assert_response :success
     assert_not_nil assigns(:grades)
     assert_equal 3, assigns(:grades).size
@@ -32,7 +35,7 @@ class GradesControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    get :new, institution_id: @institution.to_param
+    get :new, params: { institution_id: @institution.to_param }
     assert_response :success
     assert_not_nil assigns(:grade)
     assert_template 'grades/new'
@@ -40,22 +43,24 @@ class GradesControllerTest < ActionController::TestCase
 
   test 'should create grade' do
     assert_difference('Grade.count') do
-      post :create, institution_id: @institution.to_param,
-        grade: Fabricate.attributes_for(:grade)
+      post :create, params: {
+          institution_id: @institution.to_param,
+          grade: Fabricate.attributes_for(:grade)
+      }
     end
 
     assert_redirected_to institution_grade_url(@institution, assigns(:grade))
   end
 
   test 'should show grade' do
-    get :show, institution_id: @institution.to_param, id: @grade
+    get :show, params: { institution_id: @institution.to_param, id: @grade }
     assert_response :success
     assert_not_nil assigns(:grade)
     assert_template 'grades/show'
   end
 
   test 'should get edit' do
-    get :edit, institution_id: @institution.to_param, id: @grade
+    get :edit, params: { institution_id: @institution.to_param, id: @grade }
     assert_response :success
     assert_not_nil assigns(:grade)
     assert_template 'grades/edit'
@@ -63,8 +68,11 @@ class GradesControllerTest < ActionController::TestCase
 
   test 'should update grade' do
     assert_no_difference 'Grade.count' do
-      patch :update, institution_id: @institution.to_param, id: @grade,
-        grade: Fabricate.attributes_for(:grade, name: 'Upd')
+      patch :update, params: {
+          institution_id: @institution.to_param,
+          id: @grade,
+          grade: Fabricate.attributes_for(:grade, name: 'Upd')
+      }
     end
 
     assert_redirected_to institution_grade_url(@institution, assigns(:grade))
@@ -73,7 +81,10 @@ class GradesControllerTest < ActionController::TestCase
 
   test 'should destroy grade' do
     assert_difference('Grade.count', -1) do
-      delete :destroy, institution_id: @institution.to_param, id: @grade
+      delete :destroy, params: {
+          institution_id: @institution.to_param,
+          id: @grade
+      }
     end
 
     assert_redirected_to institution_grades_url(@institution)

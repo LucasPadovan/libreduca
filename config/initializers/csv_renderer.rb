@@ -9,7 +9,7 @@ ActionController::Renderers.add :csv do |obj, options|
 
   send_data(
     str,
-    type: Mime::CSV,
+    type: Mime[:csv],
     disposition: "attachment; filename=\"#{filename}.csv\""
   )
 end
