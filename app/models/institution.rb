@@ -2,6 +2,7 @@ class Institution < ApplicationRecord
   include Configurable
   include Institutions::Overrides
   include Institutions::Settings
+  include SearchCop
 
   has_paper_trail
 
@@ -12,6 +13,10 @@ class Institution < ApplicationRecord
 
   # Default order
   default_scope -> { order("#{table_name}.name ASC") }
+
+  search_scope :search do
+    attributes :name, :identification
+  end
 
   # Validations
   validates :name, :identification, :district_id, presence: true
