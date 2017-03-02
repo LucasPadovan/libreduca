@@ -252,7 +252,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should find the user by email' do
     login_into_institution
 
-    get :find_by_email, params: { email: @user.email, xhr: true }
+    get :find_by_email, params: { email: @user.email, format: :js }, xhr: true
 
     assert_match edit_user_url(@user), @response.body
   end
@@ -262,7 +262,7 @@ class UsersControllerTest < ActionController::TestCase
     another_user = Fabricate(:user)
     job = Fabricate(:job, institution_id: institution.id)
 
-    get :find_by_email, params: { email: another_user.email, xhr: true }
+    get :find_by_email, params: { email: another_user.email, format: :js }, xhr: true
 
     assert_match new_user_job_url(another_user), @response.body
   end
@@ -270,7 +270,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should not find the user by email' do
     login_into_institution
 
-    get :find_by_email, params: { email: '', xhr: true }
+    get :find_by_email, params: { email: '', format: :js }, xhr: true
 
     assert_response :success
   end

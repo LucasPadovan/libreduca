@@ -50,9 +50,8 @@ class PresentationsControllerTest < ActionController::TestCase
           homework_id: homework,
           presentation: Fabricate.attributes_for(
               :presentation, user_id: nil, homework_id: nil
-          ),
-          xhr: true
-      }
+          )
+      }, xhr: true
     end
 
     assert_template 'presentations/create'

@@ -36,9 +36,8 @@ class CommentsControllerTest < ActionController::TestCase
               commentable_id: nil,
               commentable_type: nil
           ),
-          format: :js,
-          xhr: true
-      }
+          format: :js
+      }, xhr: true
     end
 
     assert_response :success
@@ -59,9 +58,8 @@ class CommentsControllerTest < ActionController::TestCase
                 commentable_id: nil,
                 commentable_type: nil
             ),
-            format: :js,
-            xhr: true
-        }
+            format: :js
+        }, xhr: true
       end
     end
 

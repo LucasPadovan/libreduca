@@ -45,9 +45,8 @@ class ImagesControllerTest < ActionController::TestCase
           format: :js,
           image: Fabricate.attributes_for(
               :image, institution_id: @institution.id
-          ),
-          xhr: true
-      }
+          )
+      }, xhr: true
     end
 
     assert_template 'images/create'

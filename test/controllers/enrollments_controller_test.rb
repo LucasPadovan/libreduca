@@ -13,9 +13,8 @@ class EnrollmentsControllerTest < ActionController::TestCase
       post :send_email_summary,
            params: {
               user_id: enrollment.enrollable.id,
-              id: enrollment.id,
-              xhr: true
-           }
+              id: enrollment.id
+           }, xhr: true
     end
 
     assert_response :success
