@@ -3,11 +3,11 @@ require 'test_helper'
 class DashboardControllerTest < ActionController::TestCase
   setup do
     institution = Fabricate(:institution)
-    user = Fabricate(:user, password: '123456', roles: [:normal])
-    @job = Fabricate(:job, user_id: user.id, institution_id: institution.id)
+    @user = Fabricate(:user, password: '123456', roles: [:normal])
+    @job = Fabricate(:job, user_id: @user.id, institution_id: institution.id)
     @request.host = "#{institution.identification}.lvh.me"
 
-    sign_in user
+    sign_in @user
   end
 
   test 'should get index' do
@@ -16,28 +16,32 @@ class DashboardControllerTest < ActionController::TestCase
   end
 
   test 'should get headmaster dashboard' do
-    assert @job.update_attribute :job, 'headmaster'
+    @job.update_attribute :job, 'headmaster'
+    assert @user.reload.jobs.first.job, 'headmaster'
     get :headmaster
     assert_response :success
     assert_template 'dashboard/headmaster'
   end
 
   test 'should get janitor dashboard' do
-    assert @job.update_attribute :job, 'janitor'
+    @job.update_attribute :job, 'janitor'
+    assert @user.reload.jobs.first.job, 'janitor'
     get :janitor
     assert_response :success
     assert_template 'dashboard/janitor'
   end
 
   test 'should get student dashboard' do
-    assert @job.update_attribute :job, 'student'
+    @job.update_attribute :job, 'student'
+    assert @user.reload.jobs.first.job, 'student'
     get :student
     assert_response :success
     assert_template 'dashboard/student'
   end
 
   test 'should get teacher dashboard' do
-    assert @job.update_attribute :job, 'teacher'
+    @job.update_attribute :job, 'teacher'
+    assert @user.reload.jobs.first.job, 'teacher'
     get :teacher
     assert_response :success
     assert_template 'dashboard/teacher'
