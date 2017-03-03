@@ -81,18 +81,18 @@ class NewsTest < ActiveSupport::TestCase
     ].sort, @news.errors[:published_at].sort
   end
 
-  # test 'magick search' do
-  #   5.times do
-  #     Fabricate(:news) { title { "magick_title #{sequence(:news_title)}" } }
-  #   end
-  #
-  #   news = News.magick_search('magick')
-  #
-  #   assert_equal 5, news.count
-  #   assert news.all? { |s| s.to_s =~ /magick/ }
-  #
-  #   news = News.magick_search('noplace')
-  #
-  #   assert news.empty?
-  # end
+  test 'filtered search' do
+    5.times do
+      Fabricate(:news) { title { "magick_title #{sequence(:news_title)}" } }
+    end
+
+    news = News.filtered_search('magick')
+
+    assert_equal 5, news.count
+    assert news.all? { |s| s.to_s =~ /magick/ }
+
+    news = News.filtered_search('noplace')
+
+    assert news.empty?
+  end
 end

@@ -1,9 +1,13 @@
 class Group < ApplicationRecord
   has_paper_trail
-
-  # has_magick_columns name: :string
+  include SearchCop
+  include SearchFunctions
 
   attr_accessor :enrollable_type
+
+  search_scope :magic_search do
+    attributes :name
+  end
 
   # Validations
   validates :name, :institution_id, presence: true
@@ -39,10 +43,5 @@ class Group < ApplicationRecord
     }
 
     super(default_options.merge(options || {}))
-  end
-
-  def self.filtered_list(query)
-    # query.present? ? magick_search(query) : all
-    all
   end
 end

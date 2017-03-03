@@ -1,10 +1,14 @@
 class Region < ApplicationRecord
   has_paper_trail
-
-  # has_magick_columns name: :string
+  include SearchCop
+  include SearchFunctions
 
   # Default order
   default_scope -> { order("#{table_name}.name ASC") }
+
+  search_scope :magic_search do
+    attributes :name
+  end
 
   # Validations
   validates :name, presence: true
@@ -20,10 +24,5 @@ class Region < ApplicationRecord
 
   def to_s
     self.name
-  end
-
-  def self.filtered_list(query)
-    # query.present? ? magick_search(query) : all
-    all
   end
 end

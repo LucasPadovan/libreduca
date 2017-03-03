@@ -1,6 +1,8 @@
 class News < ApplicationRecord
   include Visitable
   include Commentable
+  include SearchCop
+  include SearchFunctions
 
   self.per_page = 6
 
@@ -18,6 +20,10 @@ class News < ApplicationRecord
 
   # Default order
   default_scope -> { order("#{table_name}.created_at DESC") }
+
+  search_scope :magic_search do
+    attributes :title
+  end
 
   # Validations
   validates :title, :published_at, presence: true
@@ -68,10 +74,5 @@ class News < ApplicationRecord
 
   def users_to_notify(user, institution)
     []
-  end
-
-  def self.filtered_list(query)
-    # query.present? ? magick_search(query) : all
-    all
   end
 end

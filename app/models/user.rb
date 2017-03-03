@@ -4,10 +4,11 @@ class User < ApplicationRecord
   include Users::DeviseCustomization
   include Users::Jobs
   include Users::Kinships
-  include Users::MagickColumns
   include Users::Memberships
   include Users::Overrides
   include Users::Roles
+  include SearchCop
+  include SearchFunctions
 
   mount_uploader :avatar, AvatarUploader
 
@@ -17,6 +18,10 @@ class User < ApplicationRecord
 
   # Default order
   default_scope -> { order("#{table_name}.lastname ASC") }
+
+  search_scope :magic_search do
+    attributes :name, :lastname, :email
+  end
 
   # Validations
   validates :name, presence: true

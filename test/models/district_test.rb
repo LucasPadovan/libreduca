@@ -56,20 +56,20 @@ class DistrictTest < ActiveSupport::TestCase
     ], @district.errors[:name]
   end
 
-  # test 'magick search' do
-  #   5.times do
-  #     Fabricate(:district) do
-  #       name { "magick_name #{sequence(:district_name)}" }
-  #     end
-  #   end
-  #
-  #   districts = District.magick_search('magick')
-  #
-  #   assert_equal 5, districts.count
-  #   assert districts.all? { |d| d.to_s =~ /magick/ }
-  #
-  #   districts = District.magick_search('nodistrict')
-  #
-  #   assert districts.empty?
-  # end
+  test 'filtered search' do
+    5.times do
+      Fabricate(:district) do
+        name { "magick_name #{sequence(:district_name)}" }
+      end
+    end
+
+    districts = District.filtered_search('magick')
+
+    assert_equal 5, districts.count
+    assert districts.all? { |d| d.to_s =~ /magick/ }
+
+    districts = District.filtered_search('nodistrict')
+
+    assert districts.empty?
+  end
 end

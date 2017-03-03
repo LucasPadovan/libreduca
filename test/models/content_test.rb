@@ -75,22 +75,22 @@ class ContentTest < ActiveSupport::TestCase
     end
   end
 
-  # test 'magick search' do
-  #   5.times do
-  #     Fabricate(:content) {
-  #       title { "magick_title #{sequence(:content_name)}" }
-  #     }
-  #   end
-  #
-  #   contents = Content.magick_search('magick')
-  #
-  #   assert_equal 5, contents.count
-  #   assert contents.all? { |s| s.to_s =~ /magick/ }
-  #
-  #   contents = Content.magick_search('noplace')
-  #
-  #   assert contents.empty?
-  # end
+  test 'filtered search' do
+    5.times do
+      Fabricate(:content) {
+        title { "magick_title #{sequence(:content_name)}" }
+      }
+    end
+
+    contents = Content.filtered_search('magick')
+
+    assert_equal 5, contents.count
+    assert contents.all? { |s| s.to_s =~ /magick/ }
+
+    contents = Content.filtered_search('noplace')
+
+    assert contents.empty?
+  end
 
   test 'next and prev for' do
     Content.destroy_all

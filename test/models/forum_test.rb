@@ -63,18 +63,18 @@ class ForumTest < ActiveSupport::TestCase
     ], @forum.errors[:name]
   end
 
-  # test 'magick search' do
-  #   5.times do
-  #     Fabricate(:forum) { name { "magick_name #{sequence(:forum_name)}" } }
-  #   end
-  #
-  #   forums = Forum.magick_search('magick')
-  #
-  #   assert_equal 5, forums.count
-  #   assert forums.all? { |s| s.to_s =~ /magick/ }
-  #
-  #   forums = Forum.magick_search('noplace')
-  #
-  #   assert forums.empty?
-  # end
+  test 'filtered search' do
+    5.times do
+      Fabricate(:forum) { name { "magick_name #{sequence(:forum_name)}" } }
+    end
+
+    forums = Forum.filtered_search('magick')
+
+    assert_equal 5, forums.count
+    assert forums.all? { |s| s.to_s =~ /magick/ }
+
+    forums = Forum.filtered_search('noplace')
+
+    assert forums.empty?
+  end
 end

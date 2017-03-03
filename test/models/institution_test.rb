@@ -105,30 +105,29 @@ class InstitutionTest < ActiveSupport::TestCase
       identification { "magick-identification-#{sequence(:institution_identification)}" }
     end
   
-    institutions = Institution.search('magick')
+    institutions = Institution.filtered_search('magick')
   
     assert_equal 9, institutions.count
     assert institutions.all? { |s| s.inspect =~ /magick/ }
   
-    institutions = Institution.search('magick_name')
+    institutions = Institution.filtered_search('magick_name')
   
     assert_equal 6, institutions.count
     assert institutions.all? { |s| s.inspect =~ /magick_name/ }
   
-    institutions = Institution.search('magick_name magick-identification')
+    institutions = Institution.filtered_search('magick_name magick-identification')
   
     assert_equal 1, institutions.count
     assert institutions.all? { |s| s.inspect =~ /magick-identification.*magick_name/ }
 
-    # TODO: this tests inclusive OR, see how SearchCop manages this
-    # institutions = Institution.search(
-    #   "magick_name #{I18n.t('magick_columns.or').first} magick-identification"
-    # )
-    #
-    # assert_equal 9, institutions.count
+    institutions = Institution.filtered_search(
+      "magick_name #{I18n.t('filtered_search.or').first} magick-identification"
+    )
+
+    assert_equal 9, institutions.count
     assert institutions.all? { |s| s.inspect =~ /magick_name|magick-identification/ }
   
-    institutions = Institution.search('noinstitution')
+    institutions = Institution.filtered_search('noinstitution')
   
     assert institutions.empty?
   end

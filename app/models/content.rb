@@ -1,13 +1,18 @@
 class Content < ApplicationRecord
   include Visitable
-  include Contents::MagickColumns
   include Contents::Navigation
   include Contents::Surveys
+  include SearchCop
+  include SearchFunctions
 
   has_paper_trail
 
   # Default order
   default_scope -> { order("#{table_name}.title ASC") }
+
+  search_scope :magic_search do
+    attributes :title
+  end
 
   # Validations
   validates :title, :teach_id, presence: true

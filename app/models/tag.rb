@@ -1,9 +1,9 @@
 class Tag < ApplicationRecord
   has_paper_trail
+  include SearchCop
+  include SearchFunctions
 
   CATEGORIES = ['default', 'primary', 'success', 'info', 'warning', 'danger']
-
-  # has_magick_columns name: :string, tagger_type: :string
 
   alias_attribute :label, :to_s
 
@@ -12,6 +12,10 @@ class Tag < ApplicationRecord
 
   # Default order
   default_scope -> { order("#{table_name}.name DESC") }
+
+  search_scope :magic_search do
+    attributes :name, :tagger_type
+  end
 
   # Validations
   validates :name, :category, :tagger_type, presence: true
@@ -44,10 +48,5 @@ class Tag < ApplicationRecord
     }
 
     super(default_options.merge(options || {}))
-  end
-
-  def self.filtered_list(query)
-    # query.present? ? magick_search(query) : all
-    all
   end
 end

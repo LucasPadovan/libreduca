@@ -1,10 +1,16 @@
 class Course < ApplicationRecord
   has_paper_trail
+  include SearchCop
+  include SearchFunctions
 
   # has_magick_columns name: :string
 
   # Default order
   default_scope -> { order("#{table_name}.name ASC") }
+
+  search_scope :magic_search do
+    attributes :name
+  end
 
   # Validations
   validates :name, :grade_id, presence: true
@@ -19,10 +25,5 @@ class Course < ApplicationRecord
 
   def to_s
     self.name
-  end
-
-  def self.filtered_list(query)
-    # query.present? ? magick_search(query) : all
-    all
   end
 end

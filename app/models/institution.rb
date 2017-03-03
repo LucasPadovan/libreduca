@@ -3,6 +3,7 @@ class Institution < ApplicationRecord
   include Institutions::Overrides
   include Institutions::Settings
   include SearchCop
+  include SearchFunctions
 
   has_paper_trail
 
@@ -14,7 +15,7 @@ class Institution < ApplicationRecord
   # Default order
   default_scope -> { order("#{table_name}.name ASC") }
 
-  search_scope :search do
+  search_scope :magic_search do
     attributes :name, :identification
   end
 
@@ -46,10 +47,5 @@ class Institution < ApplicationRecord
 
   def institution
     self
-  end
-
-  def self.filtered_list(query)
-    # query.present? ? magick_search(query) : all
-    all
   end
 end

@@ -1,5 +1,7 @@
 class Forum < ApplicationRecord
   include Commentable
+  include SearchCop
+  include SearchFunctions
 
   has_paper_trail ignore: [
     :comments_count, :lock_version, :updated_at
@@ -15,6 +17,10 @@ class Forum < ApplicationRecord
   # Default order
   default_scope -> { order("#{table_name}.name ASC") }
 
+  search_scope :magic_search do
+    attributes :name
+  end
+
   # Validations
   validates :name, :topic, :user_id, :owner_id, presence: true
   validates :name, length: { maximum: 255 }, allow_nil: true, allow_blank: true
@@ -25,11 +31,6 @@ class Forum < ApplicationRecord
 
   def to_s
     self.name
-  end
-
-  def self.filtered_list(query)
-    # query.present? ? magick_search(query) : all
-    all
   end
 
   def users_to_notify(user, institution)

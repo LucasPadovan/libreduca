@@ -1,5 +1,5 @@
 'es':
-  magick_columns:
+  filtered_search:
     and:
       - y
     or:
